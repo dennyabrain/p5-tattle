@@ -17,12 +17,11 @@ const colors = Object.keys(brand)
   }, [])
 
 new p5((sketch) => {
-  const perspConfig = {
-    width: 600, height: 600, cellSize: 80,
-    vanishingPoints: [[360, 300]]
+  const gridConfig = {
+    width: 600, height: 600, cellSize: 40,
   }
   const gridObjA = pipe(
-    perspectiveGrid1(perspConfig),
+    squareGrid(gridConfig),
     // gridWithPerlin(sketch, { level: 20 }),
     // translate([-100, 20])
   )
