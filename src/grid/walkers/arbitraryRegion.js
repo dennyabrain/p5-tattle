@@ -28,26 +28,33 @@ export function arbitraryRegion(grid, indices) {
   const points = [...grid]
   const colSize = grid.colSize
 
-  const corners = indices
+  const boundary = indices
     .map(({ col, row }) => points[col * colSize + row])
     .filter(pt => pt != null)
 
-  const xs = corners.map(([x]) => x)
-  const ys = corners.map(([, y]) => y)
+  const xs = boundary.map(([x]) => x)
+  const ys = boundary.map(([, y]) => y)
   const minX = Math.min(...xs), maxX = Math.max(...xs)
   const minY = Math.min(...ys), maxY = Math.max(...ys)
   const rangeX = maxX - minX || 1
   const rangeY = maxY - minY || 1
 
-  const boundary = corners
-  const boundaryUVs = corners.map(([x, y]) => [
+  // 4 bounding-box corners in TL, TR, BR, BL winding — required by drawInRegion
+  const corners = [
+    [minX, minY],
+    [maxX, minY],
+    [maxX, maxY],
+    [minX, maxY],
+  ]
+
+  const boundaryUVs = boundary.map(([x, y]) => [
     (x - minX) / rangeX,
     (y - minY) / rangeY,
   ])
 
   const center = [
-    corners.reduce((s, [x]) => s + x, 0) / corners.length,
-    corners.reduce((s, [, y]) => s + y, 0) / corners.length,
+    boundary.reduce((s, [x]) => s + x, 0) / boundary.length,
+    boundary.reduce((s, [, y]) => s + y, 0) / boundary.length,
   ]
 
   return { corners, boundary, boundaryUVs, center, index: { indices } }

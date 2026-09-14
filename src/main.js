@@ -2,7 +2,7 @@ import p5 from 'p5'
 import { brand } from './brand'
 import { generators, modifiers, renderers, walkers, pipe } from './grid'
 import { darken, lighten } from './colors'
-import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawPolygon, drawRect } from './grid/renderers'
+import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawInRegion, drawPolygon, drawRect } from './grid/renderers'
 import { randomAccess, arbitraryRegion } from './grid/walkers'
 import { sine } from './grid/modifiers'
 import { createCapture } from './grid/capture'
@@ -21,6 +21,30 @@ const colors = Object.keys(brand)
     acc.push(brand[cur])
     return acc
   }, [])
+
+
+function drawPattern(sketch, region) {
+  const cols = 15
+  const rows = 8
+  const dotSize = 16
+
+  sketch.beginClip()
+  drawPolygon(sketch, region)
+  sketch.endClip()
+
+  drawInRegion(sketch, region, (map) => {
+    for (let c = 0; c <= cols; c++) {
+      for (let r = 0; r <= rows; r++) {
+        const [x, y] = map(c / cols, r / rows)
+        sketch.circle(x, y, dotSize)
+      }
+    }
+  })
+
+  sketch.resetClip()
+}
+
+
 
 new p5((sketch) => {
   const gridConfig = { width: 600, height: 600, cellSize: 40, vanishingPoints: [[300, 300]] }
@@ -110,11 +134,12 @@ new p5((sketch) => {
     // drawLines(sketch, gridObj, gridObj.colSize)
     // drawDotDebug(sketch, gridObj, gridObj.colSize, 8, font, capture.state)
 
-    sketch.fill(colors[3])
-    sketch.stroke(darken(sketch, colors[3], 40))
-    drawPolygon(sketch, brushRegion)
+    sketch.fill(colors[4])
+    sketch.stroke(darken(sketch, colors[4], 4))
+    // drawPolygon(sketch, brushRegion)
 
-    drawImageFull(sketch, brushRegion, img)
+    // drawImageFull(sketch, brushRegion, img)
+    drawPattern(sketch, brushRegion)
 
     for (const region of regions) {
       // colour each cell based on its column index
