@@ -14,6 +14,18 @@ import { drawInRegion } from './drawInRegion.js'
  * @param {number}   v2     - Bottom edge of crop (0–1).
  */
 export function drawImageCrop(sketch, region, img, u1, v1, u2, v2) {
+  if (region.boundary && region.boundaryUVs) {
+    sketch.texture(img)
+    sketch.beginShape()
+    for (let i = 0; i < region.boundary.length; i++) {
+      const [x, y] = region.boundary[i]
+      const [u, v] = region.boundaryUVs[i]
+      sketch.vertex(x, y, 0, u1 + (u2 - u1) * u, v1 + (v2 - v1) * v)
+    }
+    sketch.endShape(sketch.CLOSE)
+    return
+  }
+
   drawInRegion(sketch, region, (map) => {
     sketch.texture(img)
     sketch.beginShape()

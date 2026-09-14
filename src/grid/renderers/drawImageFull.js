@@ -9,6 +9,18 @@ import { drawInRegion } from './drawInRegion.js'
  * @param {p5.Image} img    - The image to draw.
  */
 export function drawImageFull(sketch, region, img) {
+  if (region.boundary && region.boundaryUVs) {
+    sketch.texture(img)
+    sketch.beginShape()
+    for (let i = 0; i < region.boundary.length; i++) {
+      const [x, y] = region.boundary[i]
+      const [u, v] = region.boundaryUVs[i]
+      sketch.vertex(x, y, 0, u, v)
+    }
+    sketch.endShape(sketch.CLOSE)
+    return
+  }
+
   drawInRegion(sketch, region, (map) => {
     sketch.texture(img)
     sketch.beginShape()
