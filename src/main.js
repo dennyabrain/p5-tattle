@@ -1,6 +1,6 @@
 import p5 from 'p5'
 import { brand } from './brand'
-import { generators, modifiers, renderers } from './grid'
+import { generators, modifiers, renderers, pipe } from './grid'
 
 const { squareGrid, fibonacciGrid, randomGrid } = generators
 const { gridWithPerlin, offset, zigzagOffset } = modifiers
@@ -12,7 +12,7 @@ const HEIGHT = 600
 const gridConfig = {
   width: 800,
   height: 800,
-  cellSize: 80
+  cellSize: 40
 }
 
 const colors = Object.keys(brand)
@@ -44,15 +44,18 @@ new p5((sketch) => {
 
   const colSize = Math.floor(gridConfig.height / gridConfig.cellSize) + 1
 
-  // const grid = [...randomGrid()]
-  // const grid = [...squareGrid(gridConfig)]
-  // const grid = [...fibonacciGrid(gridConfig)]
-  // const grid = [...gridWithPerlin(sketch, squareGrid(gridConfig), 400)]
-  // const grid = [...gridWithPerlin(sketch, fibonacciGrid(gridConfig), 4)]
-  // const grid = [...offset(squareGrid(gridConfig), { axis: 'column', amount: 10, colSize })]
-  // const grid = [...offset(squareGrid(gridConfig), { axis: 'row', amount: 10, colSize })]
-  // const grid = [...zigzagOffset(squareGrid(gridConfig), { axis: 'column', amount: 10, colSize })]
-  const grid = [...zigzagOffset(squareGrid(gridConfig), { axis: 'row', amount: 10, colSize })]
+  // const grid = [...pipe(randomGrid())]
+  // const grid = [...pipe(squareGrid(gridConfig))]
+  // const grid = [...pipe(fibonacciGrid(gridConfig))]
+  // const grid = [...pipe(squareGrid(gridConfig), gridWithPerlin(sketch, { level: 400 }))]
+  // const grid = [...pipe(fibonacciGrid(gridConfig), gridWithPerlin(sketch, { level: 4 }))]
+  // const grid = [...pipe(squareGrid(gridConfig), offset({ axis: 'column', amount: 10, colSize }))]
+  // const grid = [...pipe(squareGrid(gridConfig), offset({ axis: 'row', amount: 10, colSize }))]
+  // const grid = [...pipe(squareGrid(gridConfig), zigzagOffset({ axis: 'column', amount: 10, colSize }))]
+  const grid = [...pipe(
+    squareGrid(gridConfig),
+    zigzagOffset({ axis: 'column', amount: 10, colSize })
+  )]
 
   console.log({ grid })
 
@@ -66,6 +69,8 @@ new p5((sketch) => {
     sketch.stroke(colors[4])
 
     drawLines(sketch, grid, colSize)
+
+    // drawLines(sketch, [...pipe(squareGrid(gridConfig), zigzagOffset({ axis: 'row', amount: 10, colSize }))], colSize)
 
     sketch.noFill()
     sketch.stroke(colors[7])
