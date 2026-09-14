@@ -3,16 +3,16 @@ import { brand } from './brand'
 import { generators, modifiers, renderers } from './grid'
 
 const { squareGrid, fibonacciGrid, randomGrid } = generators
-const { gridWithPerlin } = modifiers
+const { gridWithPerlin, offset, zigzagOffset } = modifiers
 const { drawDots, drawLines } = renderers
 
 const WIDTH = 600
 const HEIGHT = 600
 
 const gridConfig = {
-  width: 600,
-  height: 600,
-  cellSize: 20
+  width: 800,
+  height: 800,
+  cellSize: 80
 }
 
 const colors = Object.keys(brand)
@@ -42,11 +42,17 @@ new p5((sketch) => {
     sketch.endShape(sketch.CLOSE)
   }
 
+  const colSize = Math.floor(gridConfig.height / gridConfig.cellSize) + 1
+
   // const grid = [...randomGrid()]
-  const grid = [...squareGrid(gridConfig)]
-  // const grid = [...gridWithPerlin(sketch, squareGrid(gridConfig), 400)]
+  // const grid = [...squareGrid(gridConfig)]
   // const grid = [...fibonacciGrid(gridConfig)]
+  // const grid = [...gridWithPerlin(sketch, squareGrid(gridConfig), 400)]
   // const grid = [...gridWithPerlin(sketch, fibonacciGrid(gridConfig), 4)]
+  // const grid = [...offset(squareGrid(gridConfig), { axis: 'column', amount: 10, colSize })]
+  // const grid = [...offset(squareGrid(gridConfig), { axis: 'row', amount: 10, colSize })]
+  // const grid = [...zigzagOffset(squareGrid(gridConfig), { axis: 'column', amount: 10, colSize })]
+  const grid = [...zigzagOffset(squareGrid(gridConfig), { axis: 'row', amount: 10, colSize })]
 
   console.log({ grid })
 
@@ -59,7 +65,7 @@ new p5((sketch) => {
     sketch.fill(colors[4])
     sketch.stroke(colors[4])
 
-    drawLines(sketch, grid, Math.floor(gridConfig.height / gridConfig.cellSize) + 1)
+    drawLines(sketch, grid, colSize)
 
     sketch.noFill()
     sketch.stroke(colors[7])
