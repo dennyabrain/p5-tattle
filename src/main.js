@@ -2,9 +2,10 @@ import p5 from 'p5'
 import { brand } from './brand'
 import { generators, modifiers, renderers, walkers, pipe } from './grid'
 import { darken, lighten } from './colors'
-import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawRect } from './grid/renderers'
-import { randomAccess } from './grid/walkers'
+import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawPolygon, drawRect } from './grid/renderers'
+import { randomAccess, arbitraryRegion } from './grid/walkers'
 import { sine } from './grid/modifiers'
+import { createCapture } from './grid/capture'
 
 const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1 } = generators
 const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
@@ -32,9 +33,10 @@ new p5((sketch) => {
   )
 
   // const regions = [...radialWalker(gridObj, { origin: [300, 300] })]
-  let regions, imgRegion
+  let regions, imgRegion, brushRegion
   let img, font
 
+  const capture = createCapture(sketch)
 
   sketch.setup = () => {
     sketch.createCanvas(WIDTH, HEIGHT, sketch.WEBGL)
@@ -42,7 +44,60 @@ new p5((sketch) => {
     sketch.loadImage('/tmp/dithered-image.png', (loaded) => { img = loaded })
     sketch.loadFont('/tmp/roboto.ttf', (loaded) => { font = loaded })
     regions = [...linearWalker(gridObj)]
+    brushRegion = arbitraryRegion(gridObj, [
+      {
+        "col": 4,
+        "row": 7
+      },
+      {
+        "col": 5,
+        "row": 7
+      },
+      {
+        "col": 6,
+        "row": 7
+      },
+      {
+        "col": 7,
+        "row": 7
+      },
+      {
+        "col": 8,
+        "row": 7
+      },
+      {
+        "col": 11,
+        "row": 11
+      },
+      {
+        "col": 9,
+        "row": 13
+      },
+      {
+        "col": 6,
+        "row": 12
+      },
+      {
+        "col": 4,
+        "row": 12
+      },
+      {
+        "col": 2,
+        "row": 11
+      },
+      {
+        "col": 2,
+        "row": 9
+      },
+      {
+        "col": 3,
+        "row": 8
+      }
+    ])
   }
+
+  sketch.keyPressed = () => capture.keyPressed()
+  sketch.mousePressed = () => capture.mousePressed(gridObj, gridObj.colSize)
 
   sketch.draw = () => {
     if (!img) return
@@ -53,7 +108,13 @@ new p5((sketch) => {
     sketch.translate(-WIDTH / 2, -HEIGHT / 2)
 
     // drawLines(sketch, gridObj, gridObj.colSize)
-    // drawDotDebug(sketch, gridObj, gridObj.colSize, 8, font)
+    // drawDotDebug(sketch, gridObj, gridObj.colSize, 8, font, capture.state)
+
+    sketch.fill(colors[3])
+    sketch.stroke(darken(sketch, colors[3], 40))
+    drawPolygon(sketch, brushRegion)
+
+    drawImageFull(sketch, brushRegion, img)
 
     for (const region of regions) {
       // colour each cell based on its column index
@@ -81,8 +142,8 @@ new p5((sketch) => {
     //   i += 2
     // }
 
-    imgRegion = randomAccess(gridObj, { top: 2, left: 2, bottom: 10, right: 9 })
-    drawImageFull(sketch, imgRegion, img)
+    // imgRegion = randomAccess(gridObj, { top: 2, left: 2, bottom: 10, right: 9 })
+    // drawImageFull(sketch, imgRegion, img)
     // drawImageCrop(sketch, imgRegion, img, 0, 1, 1, 0.2)
 
 
