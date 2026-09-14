@@ -1,0 +1,18 @@
+{
+  "name": "p5-tattle",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.2.2"
+  },
+  "dependencies": {
+    "p5": "^2.3.2",
+    "p5.brush": "^2.2.2"
+  }
+}
