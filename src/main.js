@@ -2,7 +2,7 @@ import p5 from 'p5'
 import { brand } from './brand'
 import { generators, modifiers, renderers, walkers, pipe } from './grid'
 import { darken, lighten } from './colors'
-import { drawDiamond, drawRect } from './grid/renderers'
+import { drawDiamond, drawImageCrop, drawImageFull, drawRect } from './grid/renderers'
 
 const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1 } = generators
 const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
@@ -30,12 +30,20 @@ new p5((sketch) => {
   // const regions = [...radialWalker(gridObj, { origin: [300, 300] })]
   const regions = [...linearWalker(gridObj)]
 
+  let img
+
   sketch.setup = () => {
-    sketch.createCanvas(WIDTH, HEIGHT)
+    sketch.createCanvas(WIDTH, HEIGHT, sketch.WEBGL)
+    sketch.textureMode(sketch.NORMAL)
+    sketch.loadImage('/tmp/dithered-image.png', (loaded) => { img = loaded })
   }
 
   sketch.draw = () => {
+    if (!img) return
+
     sketch.background(colors[0])
+    // WEBGL origin is canvas center — shift it to top-left to keep grid coords working
+    sketch.translate(-WIDTH / 2, -HEIGHT / 2)
 
     for (const region of regions) {
       // colour each cell based on its column index
@@ -44,7 +52,9 @@ new p5((sketch) => {
       // var baseColor = colors[5]
       // var colorbg = darken(sketch, colorMap, darkOffset)
       sketch.fill(colors[1])
-      drawDots(sketch, region, gridConfig.cellSize)
+      // drawDots(sketch, region, gridConfig.cellSize)
+      // drawImageFull(sketch, region, img)
+      drawImageCrop(sketch, region, img, 0, 1, 0.2, 0.5)
       // console.log(region.distanceToOrigin);
     }
 
