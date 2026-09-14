@@ -2,7 +2,7 @@ import p5 from 'p5'
 import { brand } from './brand'
 import { generators, modifiers, renderers, pipe } from './grid'
 
-const { isometricGrid, squareGrid, fibonacciGrid, randomGrid } = generators
+const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1 } = generators
 const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
 const { drawDots, drawLines } = renderers
 
@@ -17,14 +17,16 @@ const colors = Object.keys(brand)
   }, [])
 
 new p5((sketch) => {
-  const gridConfigA = { width: 400, height: 1200, cellSize: 40 }
+  const perspConfig = {
+    width: 600, height: 600, cellSize: 80,
+    vanishingPoints: [[360, 300]]
+  }
   const gridObjA = pipe(
-    isometricGrid(gridConfigA),
-    gridWithPerlin(sketch, { level: 10 }),
-    translate([0, -180])
+    perspectiveGrid1(perspConfig),
+    // gridWithPerlin(sketch, { level: 20 }),
+    // translate([-100, 20])
   )
   const baseGrid = [...gridObjA]
-
 
   sketch.setup = () => {
     sketch.createCanvas(WIDTH, HEIGHT)
@@ -34,11 +36,8 @@ new p5((sketch) => {
     sketch.background(colors[0])
 
     sketch.fill(colors[4])
-    sketch.stroke(colors[4])
-    drawDots(sketch, baseGrid)
+    sketch.stroke("#6f6ff6")
+    // drawDots(sketch, baseGrid)
     drawLines(sketch, baseGrid, gridObjA.colSize)
-
-    sketch.fill(colors[7])
-    sketch.stroke(colors[7])
   }
 })
