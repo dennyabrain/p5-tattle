@@ -1,14 +1,15 @@
 import p5 from 'p5'
 import { brand } from './brand'
-import { generators, modifiers } from './grid'
+import { generators, modifiers, renderers } from './grid'
 
 const { squareGrid, fibonacciGrid, randomGrid } = generators
 const { gridWithPerlin } = modifiers
+const { drawDots, drawLines } = renderers
 
 const WIDTH = 600
 const HEIGHT = 600
 
-const CANVAS = {
+const gridConfig = {
   width: 600,
   height: 600,
   cellSize: 20
@@ -34,18 +35,18 @@ new p5((sketch) => {
 
   function drawCell(grid, i1, j1, i2, j2) {
     sketch.beginShape()
-    sketch.vertex(...cells(grid, CANVAS, i1, j1))
-    sketch.vertex(...cells(grid, CANVAS, i2, j1))
-    sketch.vertex(...cells(grid, CANVAS, i2, j2))
-    sketch.vertex(...cells(grid, CANVAS, i1, j2))
+    sketch.vertex(...cells(grid, gridConfig, i1, j1))
+    sketch.vertex(...cells(grid, gridConfig, i2, j1))
+    sketch.vertex(...cells(grid, gridConfig, i2, j2))
+    sketch.vertex(...cells(grid, gridConfig, i1, j2))
     sketch.endShape(sketch.CLOSE)
   }
 
   // const grid = [...randomGrid()]
-  const grid = [...squareGrid(CANVAS)]
-  // const grid = [...gridWithPerlin(sketch, squareGrid(CANVAS), 400)]
-  // const grid = [...fibonacciGrid(CANVAS)]
-  // const grid = [...gridWithPerlin(sketch, fibonacciGrid(CANVAS), 4)]
+  const grid = [...squareGrid(gridConfig)]
+  // const grid = [...gridWithPerlin(sketch, squareGrid(gridConfig), 400)]
+  // const grid = [...fibonacciGrid(gridConfig)]
+  // const grid = [...gridWithPerlin(sketch, fibonacciGrid(gridConfig), 4)]
 
   console.log({ grid })
 
@@ -58,16 +59,14 @@ new p5((sketch) => {
     sketch.fill(colors[4])
     sketch.stroke(colors[4])
 
-    for (const [cellx, celly] of grid) {
-      sketch.circle(cellx, celly, 4)
-    }
+    drawLines(sketch, grid, Math.floor(gridConfig.height / gridConfig.cellSize) + 1)
 
     sketch.noFill()
     sketch.stroke(colors[7])
     // drawCell(grid, 1, 1, 5, 5);
-    drawCell(grid, 4, 4, 8, 8);
-    // sketch.rect(...cells(grid, CANVAS, 1, 1), 4 * CANVAS.cellSize, 4 * CANVAS.cellSize)
-    // console.log({ x: cells(grid, CANVAS, 1, 1) })
+    // drawCell(grid, 4, 4, 8, 8);
+    // sketch.rect(...cells(grid, gridConfig, 1, 1), 4 * gridConfig.cellSize, 4 * gridConfig.cellSize)
+    // console.log({ x: cells(grid, gridConfig, 1, 1) })
   }
 })
 
