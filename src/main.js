@@ -2,7 +2,7 @@ import p5 from 'p5'
 import { brand } from './brand'
 import { generators, modifiers, renderers, walkers, pipe } from './grid'
 import { darken, lighten } from './colors'
-import { drawDiamond, drawImageCrop, drawImageFull, drawRect } from './grid/renderers'
+import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawRect } from './grid/renderers'
 import { randomAccess } from './grid/walkers'
 
 const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1 } = generators
@@ -30,23 +30,28 @@ new p5((sketch) => {
 
   // const regions = [...radialWalker(gridObj, { origin: [300, 300] })]
   let regions, imgRegion
-  let img
+  let img, font
+
 
   sketch.setup = () => {
     sketch.createCanvas(WIDTH, HEIGHT, sketch.WEBGL)
     sketch.textureMode(sketch.NORMAL)
     sketch.loadImage('/tmp/dithered-image.png', (loaded) => { img = loaded })
+    sketch.loadFont('/tmp/roboto.ttf', (loaded) => { font = loaded })
     regions = [...linearWalker(gridObj)]
   }
 
   sketch.draw = () => {
     if (!img) return
+    if (!font) return
 
     sketch.background(colors[0])
     // WEBGL origin is canvas center — shift it to top-left to keep grid coords working
     sketch.translate(-WIDTH / 2, -HEIGHT / 2)
 
     drawLines(sketch, gridObj, gridObj.colSize)
+    drawDotDebug(sketch, gridObj, gridObj.colSize, 8, font)
+
     for (const region of regions) {
       // colour each cell based on its column index
       // var colorMap = Math.floor(sketch.map(region.distanceToOrigin, 0, 600, 0, colors.length - 1))
@@ -73,11 +78,13 @@ new p5((sketch) => {
     //   i += 2
     // }
 
-    imgRegion = randomAccess(gridObj, { top: 2, left: 2, bottom: 8, right: 8 })
+    imgRegion = randomAccess(gridObj, { top: 2, left: 2, bottom: 10, right: 9 })
     drawImageFull(sketch, imgRegion, img)
+    // drawImageCrop(sketch, imgRegion, img, 0, 1, 1, 0.2)
+
+
     // sketch.noStroke()
     // let uix1 = sketch.map(i, 0, 16, 0, 1)
-    // drawImageCrop(sketch, imgRegion, img, uix1, 0, Math.sin(140), 1)
 
   }
 })
