@@ -1,5 +1,9 @@
 import p5 from 'p5'
 import { brand } from './brand'
+import { generators, modifiers } from './grid'
+
+const { squareGrid, fibonacciGrid, randomGrid } = generators
+const { gridWithPerlin } = modifiers
 
 const WIDTH = 600
 const HEIGHT = 600
@@ -21,75 +25,6 @@ const colors = Object.keys(brand)
 
 
 new p5((sketch) => {
-  function* squareGrid(canvas) {
-    for (var i = 0; i < canvas.width + 1; i += canvas.cellSize) {
-      for (var j = 0; j < canvas.height + 1; j += canvas.cellSize) {
-        yield [i, j]
-      }
-    }
-  }
-
-  /**
-   * Return a grid whose vertical lines adhere to fibonacci sequence
-   * @param {*} canvas 
-   * 
-   * first generate a fibonnaci sequence of size Math.ceil(canvas.width/canvas.cellSize)
-   */
-  function* fibonacciGrid(canvas) {
-    const sequenceLength = Math.ceil(canvas.width / canvas.cellSize)
-    var seq = [1, 1]
-    for (var x = 1; x < sequenceLength; x++) {
-      seq.push(seq[x] + seq[x - 1])
-    }
-    console.log({ seq })
-
-    function fibSequence(max) {
-      const sequence = []
-      let a = 1, b = 1
-      while (a * canvas.cellSize < max) {
-        sequence.push(a * canvas.cellSize)
-          ;[a, b] = [b, a + b]
-      }
-      return sequence
-    }
-
-    const xSequence = fibSequence(canvas.width)
-    const ySequence = fibSequence(canvas.height)
-
-    for (const x of xSequence) {
-      for (const y of ySequence) {
-        yield [x, y]
-      }
-    }
-  }
-
-  function* gridWithPerlin(grid, level = 4) {
-    for (const [cellX, cellY] of grid) {
-      var n = sketch.noise(cellX, cellY)
-      var x = sketch.map(
-        n,
-        0, 1,
-        cellX - level,
-        cellX + level,
-        true
-      )
-      var y = sketch.map(
-        n,
-        0, 1,
-        cellY - level,
-        cellY + level,
-        true
-      )
-      yield [x, y]
-    }
-  }
-
-  function* randomGrid() {
-    yield [0, 0]
-    yield [100, 100]
-    yield [400, 400]
-  }
-
   function cells(grid, canvas, i, j) {
     var x = i
     var y = j % canvas.height
@@ -108,9 +43,9 @@ new p5((sketch) => {
 
   // const grid = [...randomGrid()]
   const grid = [...squareGrid(CANVAS)]
-  // const grid = [...gridWithPerlin(squareGrid(CANVAS), 400)]
+  // const grid = [...gridWithPerlin(sketch, squareGrid(CANVAS), 400)]
   // const grid = [...fibonacciGrid(CANVAS)]
-  // const grid = [...gridWithPerlin(fibonacciGrid(CANVAS), 4)]
+  // const grid = [...gridWithPerlin(sketch, fibonacciGrid(CANVAS), 4)]
 
   console.log({ grid })
 
