@@ -4,6 +4,7 @@ import { generators, modifiers, renderers, walkers, pipe } from './grid'
 import { darken, lighten } from './colors'
 import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawRect } from './grid/renderers'
 import { randomAccess } from './grid/walkers'
+import { sine } from './grid/modifiers'
 
 const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1 } = generators
 const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
@@ -24,8 +25,10 @@ new p5((sketch) => {
   const gridConfig = { width: 600, height: 600, cellSize: 40, vanishingPoints: [[300, 300]] }
   const gridObj = pipe(
     squareGrid(gridConfig),
-    // zigzagOffset({ amount: 2 }),
-    gridWithPerlin(sketch, { level: 8 })
+    zigzagOffset({ amount: 4 }),
+    // gridWithPerlin(sketch, { level: 8 }),
+    // sine({ amplitude: 20, frequency: 20 }),
+    // sine({ amplitude: 60, frequency: 10, phase: 3, axis: 'x', inputAxis: 'y' })
   )
 
   // const regions = [...radialWalker(gridObj, { origin: [300, 300] })]
@@ -49,8 +52,8 @@ new p5((sketch) => {
     // WEBGL origin is canvas center — shift it to top-left to keep grid coords working
     sketch.translate(-WIDTH / 2, -HEIGHT / 2)
 
-    drawLines(sketch, gridObj, gridObj.colSize)
-    drawDotDebug(sketch, gridObj, gridObj.colSize, 8, font)
+    // drawLines(sketch, gridObj, gridObj.colSize)
+    // drawDotDebug(sketch, gridObj, gridObj.colSize, 8, font)
 
     for (const region of regions) {
       // colour each cell based on its column index
