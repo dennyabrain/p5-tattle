@@ -1,5 +1,3 @@
-export function drawDots(sketch, grid, size = 4) {
-  for (const [x, y] of grid) {
-    sketch.circle(x, y, size)
-  }
+export function drawDots(sketch, region, size = 4) {
+  sketch.circle(region.center[0], region.center[1], size)
 }

@@ -1,2 +1,6 @@
 export { drawDots } from './drawDots.js'
 export { drawLines } from './drawLines.js'
+export { drawInRegion } from './drawInRegion.js'
+export { drawRect } from './drawRect.js'
+export { drawDiamond } from './drawDiamond.js'
+export { drawTriangle } from './drawTriangle.js'

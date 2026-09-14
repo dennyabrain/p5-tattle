@@ -2,6 +2,7 @@ import p5 from 'p5'
 import { brand } from './brand'
 import { generators, modifiers, renderers, walkers, pipe } from './grid'
 import { darken, lighten } from './colors'
+import { drawDiamond, drawRect } from './grid/renderers'
 
 const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1 } = generators
 const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
@@ -22,8 +23,8 @@ new p5((sketch) => {
   const gridConfig = { width: 600, height: 600, cellSize: 40, vanishingPoints: [[300, 300]] }
   const gridObj = pipe(
     squareGrid(gridConfig),
-    zigzagOffset({ amount: 20 }),
-    gridWithPerlin(sketch, { level: 16 })
+    // zigzagOffset({ amount: 0 }),
+    gridWithPerlin(sketch, { level: 20 })
   )
 
   // const regions = [...radialWalker(gridObj, { origin: [300, 300] })]
@@ -42,11 +43,8 @@ new p5((sketch) => {
       // var darkOffset = sketch.map(region.distanceToOrigin, 0, 600, 0, 360)
       // var baseColor = colors[5]
       // var colorbg = darken(sketch, colorMap, darkOffset)
-      sketch.fill(colors[3])
-      sketch.stroke(darken(sketch, colors[3], 10))
-      sketch.beginShape()
-      for (const [x, y] of region.corners) sketch.vertex(x, y)
-      sketch.endShape(sketch.CLOSE)
+      sketch.fill(colors[1])
+      drawDots(sketch, region, gridConfig.cellSize)
       // console.log(region.distanceToOrigin);
     }
 
