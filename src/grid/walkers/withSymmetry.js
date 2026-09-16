@@ -1,4 +1,10 @@
 import { cellsFromGrid } from './cells.js'
+/**
+ * @typedef {object} Region
+ * @property {Array<[number, number]>} corners - Corner points of the cell (n points).
+ * @property {[number, number]}        center  - Centroid of the corners.
+ * @property {{ col: number, row: number }} index - Grid position of this cell.
+ */
 
 /**
  * Wraps any walker with repeating symmetry — for each region the inner walker
@@ -63,8 +69,8 @@ export function withSymmetry(walker, grid, config = {}) {
         const { col, row } = region.index
 
         const mirrors = [{ col, row }]
-        if (horizontal)            mirrors.push({ col: maxCol - col, row })
-        if (vertical)              mirrors.push({ col,               row: maxRow - row })
+        if (horizontal) mirrors.push({ col: maxCol - col, row })
+        if (vertical) mirrors.push({ col, row: maxRow - row })
         if (horizontal && vertical) mirrors.push({ col: maxCol - col, row: maxRow - row })
 
         for (const { col: c, row: r } of mirrors) {
