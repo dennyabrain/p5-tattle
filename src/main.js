@@ -3,7 +3,7 @@ import { brand } from './brand'
 import { generators, modifiers, renderers, walkers, pipe } from './grid'
 import { darken, lighten } from './colors'
 import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawInRegion, drawPolygon, drawRect, drawTriangle } from './grid/renderers'
-import { randomAccess, arbitraryRegion } from './grid/walkers'
+import { randomAccess, arbitraryRegion, withSymmetry } from './grid/walkers'
 import { sine } from './grid/modifiers'
 import { createCapture } from './grid/capture'
 import { radialGrid } from './grid/generators'
@@ -13,8 +13,8 @@ const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
 const { drawDots, drawLines } = renderers
 const { linearWalker, radialWalker } = walkers
 
-const WIDTH = 600
-const HEIGHT = 600
+const WIDTH = 1020
+const HEIGHT = 1920
 
 const colors = Object.keys(brand)
   .filter((name) => name.indexOf("visuals-") != -1)
@@ -55,12 +55,14 @@ new p5((sketch) => {
   const capture = createCapture(sketch)
 
   const grid = pipe(
-    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 40 }),
+    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 80 }),
     // sine({ frequency: 2, amplitude: 12 }),
-    // gridWithPerlin(sketch, { level: 12 })
+    gridWithPerlin(sketch, { level: 2 })
     // squareGrid({ width: 600, height: 600, cellSize: 40 }),
     // gridWithPerlin(sketch, { level: 12 })
   )
+
+  let computedGrid;
 
   sketch.setup = () => {
     sketch.createCanvas(WIDTH, HEIGHT, sketch.WEBGL)
@@ -68,7 +70,10 @@ new p5((sketch) => {
     sketch.loadImage('/tmp/fish-sketch.jpg', (loaded) => { img = loaded })
     sketch.loadFont('/tmp/roboto.ttf', (loaded) => { font = loaded })
     sketch.angleMode(sketch.DEGREES)
-    sketch.randomSeed(42)
+
+    computedGrid = [...withSymmetry(linearWalker(grid), grid, { horizontal: true, vertical: true })]
+
+
   }
 
   sketch.keyPressed = () => capture.keyPressed()
@@ -85,33 +90,32 @@ new p5((sketch) => {
 
     sketch.stroke(colors[3])
     sketch.push()
-    sketch.scale(0.80)
-    sketch.translate(36, 80)
-    // drawLines(sketch, grid)
-    const maxDist = sketch.frameCount * 12
-    for (const region of radialWalker(grid, { origin: [300, 300] })) {
-      if (region.distanceToOrigin < maxDist) drawDiamond(sketch, region)
+    sketch.scale(0.95)
+    sketch.translate(12, 12)
+    drawLines(sketch, grid)
+
+
+    // for (const region of linearWalker(grid, { origin: [WIDTH / 2, HEIGHT / 2] })) {
+
+    //   let color_ix = Math.floor(sketch.map(region.index.col, 0, 15, 0, colors.length))
+    //   sketch.stroke(darken(sketch, colors[color_ix], 10))
+    //   sketch.fill(colors[color_ix])
+    //   drawRect(sketch, region)
+    // }
+    sketch.stroke(colors[2])
+    sketch.fill(colors[2])
+    for (const region of computedGrid) {
+      if (region.index.col % 2 == 0) {
+        drawDiamond(sketch, region)
+      } else {
+        continue
+      }
     }
 
-
-    // for (const region of radialWalker(grid)) {
-    //   // sketch.push()
-    //   // sketch.translate(region.center[0], region.center[1])
-
-    //   // sketch.rotate(135)
-    //   // sketch.translate(-region.center[0], -region.center[1])
-    //   region.
-
-    //   const t = Math.floor(sketch.map(region.distanceToOrigin, 0, HEIGHT, 0, colors.length - 1))
-    //   var color = colors[t]
-    //   sketch.stroke(darken(sketch, color, 10))
-    //   sketch.fill(color)
-    //   drawRect(sketch, region)
-    //   // sketch.pop()
-    // }
-
     sketch.pop()
-
+    sketch.noLoop()
   }
+
+
 })
 

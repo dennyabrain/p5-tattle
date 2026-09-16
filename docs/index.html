@@ -75,6 +75,12 @@
                         .regionGrid
                       </a></li>
                     
+                      <li><a
+                        href='#radialgrid'
+                        class='regular pre-open'>
+                        .radialGrid
+                      </a></li>
+                    
                     </ul>
                   
                   
@@ -253,6 +259,12 @@
                         href='#arbitraryregion'
                         class='regular pre-open'>
                         .arbitraryRegion
+                      </a></li>
+                    
+                      <li><a
+                        href='#withsymmetry'
+                        class='regular pre-open'>
+                        .withSymmetry
                       </a></li>
                     
                     </ul>
@@ -1063,6 +1075,183 @@ sketch.<span class="hljs-title function_">beginClip</span>()
 sketch.<span class="hljs-title function_">endClip</span>()
 <span class="hljs-title function_">drawLines</span>(sketch, <span class="hljs-title function_">regionGrid</span>(region, { <span class="hljs-attr">cols</span>: <span class="hljs-number">8</span>, <span class="hljs-attr">rows</span>: <span class="hljs-number">5</span> }), <span class="hljs-number">6</span>)
 sketch.<span class="hljs-title function_">resetClip</span>()</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='radialgrid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>radialGrid(config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Generates a radial (polar) grid of concentric rings crossed by evenly-spaced
+spokes. Points are laid out column-major where each column is one spoke and
+each row is one ring, so <code>drawLines</code> produces radial lines (within-column)
+and concentric arcs (across-column) automatically.</p>
+<p>The last spoke is a duplicate of the first so the outermost ring closes into
+a full circle without special-casing in walkers or renderers.</p>
+
+    <div class='pre p1 fill-light mt0'>radialGrid(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.width</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Canvas width in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.height</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Canvas height in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.spokes</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Number of radial lines.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.rings</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Number of concentric rings.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.outerRadius</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+  </td>
+  <td class='break-word'><span>Radius of the outermost ring.
+Defaults to half of the smaller canvas dimension.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.innerRadius</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  
+    (default <code>0</code>)
+  </td>
+  <td class='break-word'><span>Radius of the innermost ring.
+Use a value > 0 to create an annular (donut) grid.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.center</span> <code class='quiet'>[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]?</code>
+  </td>
+  <td class='break-word'><span>[x, y] centre of the grid.
+Defaults to the canvas centre.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Basic radial grid drawn as lines</span>
+<span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">radialGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">spokes</span>: <span class="hljs-number">12</span>, <span class="hljs-attr">rings</span>: <span class="hljs-number">6</span> })
+<span class="hljs-title function_">drawLines</span>(sketch, grid)</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Colour cells by ring (distance from centre)</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(<span class="hljs-title function_">radialGrid</span>(config))) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[region.<span class="hljs-property">index</span>.<span class="hljs-property">row</span> % colors.<span class="hljs-property">length</span>])
+  <span class="hljs-title function_">drawRect</span>(sketch, region)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Annular grid — hollow centre</span>
+<span class="hljs-title function_">radialGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">spokes</span>: <span class="hljs-number">16</span>, <span class="hljs-attr">rings</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">innerRadius</span>: <span class="hljs-number">80</span>, <span class="hljs-attr">outerRadius</span>: <span class="hljs-number">260</span> })</pre>
     
   
 
@@ -3331,6 +3520,165 @@ the logged output here.</p>
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Works with any draw_ function</span>
 <span class="hljs-title function_">drawRect</span>(sketch, <span class="hljs-title function_">arbitraryRegion</span>(gridObj, indices))</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='withsymmetry'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>withSymmetry(walker, grid, config = {})</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Wraps any walker with repeating symmetry — for each region the inner walker
+yields, the corresponding mirrored region(s) are also yielded. Duplicates
+are suppressed, so cells on the axis of symmetry appear exactly once.</p>
+<p>This produces <em>repeating</em> symmetry: the same unflipped shape is drawn at
+each mirrored position. If you need the content itself to be reflected
+(flipped), that requires canvas transforms and is not handled here.</p>
+
+    <div class='pre p1 fill-light mt0'>withSymmetry(walker: Iterable, grid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?): Iterable&#x3C;<a href="#region">Region</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>walker</span> <code class='quiet'>(Iterable)</code>
+	    Any walker (linearWalker, radialWalker, …).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>grid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    The same grid the walker was built from.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?
+            = <code>{}</code>)</code>
+	    Symmetry options.
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.horizontal</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  
+    (default <code>false</code>)
+  </td>
+  <td class='break-word'><span>Mirror left ↔ right.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.vertical</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  
+    (default <code>false</code>)
+  </td>
+  <td class='break-word'><span>Mirror top ↔ bottom.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Iterable&#x3C;<a href="#region">Region</a>></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Horizontal symmetry: draw in left half, mirror to right half</span>
+<span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">squareGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">40</span> })
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">withSymmetry</span>(<span class="hljs-title function_">linearWalker</span>(grid), grid, { <span class="hljs-attr">horizontal</span>: <span class="hljs-literal">true</span> })) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[region.<span class="hljs-property">index</span>.<span class="hljs-property">col</span> % colors.<span class="hljs-property">length</span>])
+  <span class="hljs-title function_">drawRect</span>(sketch, region)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Four-way symmetry: one quadrant mirrored to all four</span>
+<span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">squareGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">40</span> })
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">withSymmetry</span>(<span class="hljs-title function_">linearWalker</span>(grid), grid, { <span class="hljs-attr">horizontal</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">vertical</span>: <span class="hljs-literal">true</span> })) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[region.<span class="hljs-property">index</span>.<span class="hljs-property">row</span> % colors.<span class="hljs-property">length</span>])
+  <span class="hljs-title function_">drawDiamond</span>(sketch, region)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Works with any walker — here using radialWalker for an expanding ring effect</span>
+<span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">squareGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">40</span> })
+<span class="hljs-keyword">const</span> walker = <span class="hljs-title function_">radialWalker</span>(grid, { <span class="hljs-attr">origin</span>: [<span class="hljs-number">300</span>, <span class="hljs-number">300</span>] })
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">withSymmetry</span>(walker, grid, { <span class="hljs-attr">vertical</span>: <span class="hljs-literal">true</span> })) {
+  <span class="hljs-keyword">if</span> (region.<span class="hljs-property">distanceToOrigin</span> &lt; sketch.<span class="hljs-property">frameCount</span> * <span class="hljs-number">2</span>) <span class="hljs-title function_">drawRect</span>(sketch, region)
+}</pre>
     
   
 
