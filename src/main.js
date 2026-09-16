@@ -6,6 +6,7 @@ import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawInRegion, 
 import { randomAccess, arbitraryRegion } from './grid/walkers'
 import { sine } from './grid/modifiers'
 import { createCapture } from './grid/capture'
+import { radialGrid } from './grid/generators'
 
 const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1, regionGrid } = generators
 const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
@@ -32,7 +33,7 @@ function drawPattern(sketch, region, img) {
 
   const localGrid = pipe(
     regionGrid(region, { cols: 40, rows: 20 }),
-    sine({ amplitude: 20, frequency: 2, axis: 'x', inputAxis: 'y' })
+    // sine({ amplitude: 20, frequency: 1, axis: 'x', inputAxis: 'y' })
     // gridWithPerlin(sketch, { level: 30 })
   )
 
@@ -54,13 +55,15 @@ new p5((sketch) => {
   const capture = createCapture(sketch)
 
   const grid = pipe(
-    perspectiveGrid1({ width: WIDTH, height: HEIGHT, cellSize: 80, vanishingPoints: [[WIDTH / 2, HEIGHT / 2]] })
+    fibonacciGrid({ width: WIDTH, height: HEIGHT, cellSize: 40 }),
+    // squareGrid({ width: 600, height: 600, cellSize: 40 }),
+    // gridWithPerlin(sketch, { level: 12 })
   )
 
   sketch.setup = () => {
     sketch.createCanvas(WIDTH, HEIGHT, sketch.WEBGL)
     sketch.textureMode(sketch.NORMAL)
-    sketch.loadImage('/tmp/dithered-image.png', (loaded) => { img = loaded })
+    sketch.loadImage('/tmp/fish-sketch.jpg', (loaded) => { img = loaded })
     sketch.loadFont('/tmp/roboto.ttf', (loaded) => { font = loaded })
   }
 
@@ -74,10 +77,32 @@ new p5((sketch) => {
     sketch.background(colors[0])
     // WEBGL origin is canvas center — shift it to top-left to keep grid coords working
     sketch.translate(-WIDTH / 2, -HEIGHT / 2)
+    sketch.angleMode(sketch.DEGREES)
 
     sketch.stroke(colors[3])
+    // drawImageFull(
+    //   sketch,
+    //   randomAccess(grid, { top: 2, left: 2, bottom: 8, right: 8 }),
+    //   img)
+    // sketch.push()
+    // sketch.scale(0.95)
+    // sketch.translate(12, 12)
+    // drawLines(sketch, grid)
+    // sketch.pop()
+
+    sketch.push()
+    sketch.scale(0.95)
+    sketch.translate(WIDTH / 2, HEIGHT / 2)
+    // sketch.rotate(45)
     drawLines(sketch, grid)
+    sketch.pop()
+
+    // sketch.push()
+    // sketch.translate(12, 12)
+    // drawLines(sketch, grid)
+    // sketch.pop()
     // drawDotDebug(sketch, grid, grid.colSize, 8, font, capture.state)
+
   }
 })
 
