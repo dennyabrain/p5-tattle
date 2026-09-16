@@ -55,7 +55,7 @@ new p5((sketch) => {
     const capture = createCapture(sketch)
 
     const grid = pipe(
-        squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 24 }),
+        squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 12 }),
         // sine({ frequency: 8, amplitude: 24 }),
         gridWithPerlin(sketch, { level: 4 }),
         translate([2, 2])
@@ -93,7 +93,7 @@ new p5((sketch) => {
         sketch.push()
         sketch.scale(0.95)
         sketch.translate(12, 12)
-        drawLines(sketch, grid)
+        // drawLines(sketch, grid)
 
 
         const regions = [...withSymmetry(linearWalker(grid), grid, { vertical: true, horizontal: true })]
@@ -106,12 +106,15 @@ new p5((sketch) => {
             if (!drawCell.has(key)) drawCell.set(key, Math.random() > 0.5)
         }
 
+        sketch.noStroke()
         for (const region of regions) {
             const key = `${Math.min(region.index.col, maxCol - region.index.col)}_${Math.min(region.index.row, maxRow - region.index.row)}`
             if (!drawCell.get(key)) continue
-            const activate = region.index.col % 2 == 0 && region.index.row % 2 == 0
-            const color = activate ? colors[2] : colors[3]
-            sketch.stroke(darken(sketch, color, 4))
+            const canonicalCol = Math.min(region.index.col, maxCol - region.index.col)
+            const canonicalRow = Math.min(region.index.row, maxRow - region.index.row)
+            const activate = canonicalCol % 2 == 0 && canonicalRow % 2 == 0
+            const color = activate ? "#645089" : "#a296b8"
+            // sketch.stroke(darken(sketch, color, 4))
             sketch.fill(color)
             drawRect(sketch, region)
         }

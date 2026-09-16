@@ -13,8 +13,8 @@ const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
 const { drawDots, drawLines } = renderers
 const { linearWalker, radialWalker } = walkers
 
-const WIDTH = 1020
-const HEIGHT = 1920
+const WIDTH = 610
+const HEIGHT = 960
 
 const colors = Object.keys(brand)
   .filter((name) => name.indexOf("visuals-") != -1)
@@ -55,9 +55,17 @@ new p5((sketch) => {
   const capture = createCapture(sketch)
 
   const grid = pipe(
-    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 80 }),
-    // sine({ frequency: 2, amplitude: 12 }),
-    gridWithPerlin(sketch, { level: 2 })
+    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 12 }),
+    // sine({ frequency: 8, amplitude: 24 }),
+    gridWithPerlin(sketch, { level: 4 }),
+    // squareGrid({ width: 600, height: 600, cellSize: 40 }),
+    // gridWithPerlin(sketch, { level: 12 })
+  )
+
+  const grid2 = pipe(
+    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 36 }),
+    // sine({ frequency: 8, amplitude: 24 }),
+    gridWithPerlin(sketch, { level: 4 }),
     // squareGrid({ width: 600, height: 600, cellSize: 40 }),
     // gridWithPerlin(sketch, { level: 12 })
   )
@@ -92,30 +100,36 @@ new p5((sketch) => {
     sketch.push()
     sketch.scale(0.95)
     sketch.translate(12, 12)
-    drawLines(sketch, grid)
+    // drawLines(sketch, grid)
+
+    sketch.stroke(colors[4])
+    drawLines(sketch, grid2)
 
 
-    // for (const region of linearWalker(grid, { origin: [WIDTH / 2, HEIGHT / 2] })) {
+    const regions = [...withSymmetry(linearWalker(grid), grid, { vertical: true, horizontal: true })]
+    const maxRow = Math.max(...regions.map(r => r.index.row))
+    const maxCol = Math.max(...regions.map(r => r.index.col))
 
-    //   let color_ix = Math.floor(sketch.map(region.index.col, 0, 15, 0, colors.length))
-    //   sketch.stroke(darken(sketch, colors[color_ix], 10))
-    //   sketch.fill(colors[color_ix])
-    //   drawRect(sketch, region)
-    // }
-    sketch.stroke(colors[2])
-    sketch.fill(colors[2])
-    for (const region of computedGrid) {
-      if (region.index.col % 2 == 0) {
-        drawDiamond(sketch, region)
-      } else {
-        continue
-      }
+    const drawCell = new Map()
+    for (const r of regions) {
+      const key = `${Math.min(r.index.col, maxCol - r.index.col)}_${Math.min(r.index.row, maxRow - r.index.row)}`
+      if (!drawCell.has(key)) drawCell.set(key, Math.random() > 0.5)
     }
 
-    sketch.pop()
+    sketch.noStroke()
+    for (const region of regions) {
+      const key = `${Math.min(region.index.col, maxCol - region.index.col)}_${Math.min(region.index.row, maxRow - region.index.row)}`
+      if (!drawCell.get(key)) continue
+      const canonicalCol = Math.min(region.index.col, maxCol - region.index.col)
+      const canonicalRow = Math.min(region.index.row, maxRow - region.index.row)
+      const activate = canonicalCol % 2 == 0 && canonicalRow % 2 == 0
+      const color = activate ? "#645089" : "#a296b8"
+      // sketch.stroke(darken(sketch, color, 4))
+      sketch.fill(color)
+      drawRect(sketch, region)
+    }
+
     sketch.noLoop()
   }
-
-
 })
 

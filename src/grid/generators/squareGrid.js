@@ -21,7 +21,7 @@
  */
 export function squareGrid(config) {
   return {
-    colSize: Math.ceil(config.height / config.cellSize) + 1,
+    colSize: Math.floor(config.height / config.cellSize) + 1,
     width: config.width,
     height: config.height,
     origin: [0, 0],
