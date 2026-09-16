@@ -1,6 +1,13 @@
 import { cellsFromGrid } from './cells.js'
 
 /**
+ * @typedef {object} Region
+ * @property {Array<[number, number]>} corners - Corner points of the cell (n points).
+ * @property {[number, number]}        center  - Centroid of the corners.
+ * @property {{ col: number, row: number }} index - Grid position of this cell.
+ */
+
+/**
  * Walks a grid linearly, emitting one region (cell) at a time.
  *
  * @param {object} grid   - A grid object as returned by a generator or pipe.
@@ -10,10 +17,17 @@ import { cellsFromGrid } from './cells.js'
  *   'col-first': sweep top→bottom across rows, then advance columns.
  * @returns {Iterable<Region>}
  *
- * @typedef {object} Region
- * @property {Array<[number, number]>} corners - Corner points of the cell (n points).
- * @property {[number, number]}        center  - Centroid of the corners.
- * @property {{ col: number, row: number }} index - Grid position of this cell.
+ * @example
+ * for (const region of linearWalker(gridObj)) {
+ *   sketch.fill(colors[region.index.col % colors.length])
+ *   drawRect(sketch, region)
+ * }
+ *
+ * @example
+ * // Column-first order
+ * for (const region of linearWalker(gridObj, { direction: 'col-first' })) {
+ *   drawDiamond(sketch, region)
+ * }
  */
 export function linearWalker(grid, config = {}) {
   const { direction = 'row-first' } = config

@@ -1,0 +1,3712 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <title>p5-tattle 0.0.0 | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>p5-tattle</h3>
+          <div class='mb1'><code>0.0.0</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            spellcheck='false'
+            autocapitalize='off'
+            autocorrect='off'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#generators'
+                  class="h5 bold black caps toggle-sibling">
+                  Generators
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#squaregrid'
+                        class='regular pre-open'>
+                        .squareGrid
+                      </a></li>
+                    
+                      <li><a
+                        href='#isometricgrid'
+                        class='regular pre-open'>
+                        .isometricGrid
+                      </a></li>
+                    
+                      <li><a
+                        href='#fibonaccigrid'
+                        class='regular pre-open'>
+                        .fibonacciGrid
+                      </a></li>
+                    
+                      <li><a
+                        href='#randomgrid'
+                        class='regular pre-open'>
+                        .randomGrid
+                      </a></li>
+                    
+                      <li><a
+                        href='#perspectivegrid1'
+                        class='regular pre-open'>
+                        .perspectiveGrid1
+                      </a></li>
+                    
+                      <li><a
+                        href='#regiongrid'
+                        class='regular pre-open'>
+                        .regionGrid
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#modifiers'
+                  class="h5 bold black caps toggle-sibling">
+                  Modifiers
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#gridwithperlin'
+                        class='regular pre-open'>
+                        .gridWithPerlin
+                      </a></li>
+                    
+                      <li><a
+                        href='#offset'
+                        class='regular pre-open'>
+                        .offset
+                      </a></li>
+                    
+                      <li><a
+                        href='#zigzagoffset'
+                        class='regular pre-open'>
+                        .zigzagOffset
+                      </a></li>
+                    
+                      <li><a
+                        href='#translate'
+                        class='regular pre-open'>
+                        .translate
+                      </a></li>
+                    
+                      <li><a
+                        href='#sine'
+                        class='regular pre-open'>
+                        .sine
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#renderers'
+                  class="h5 bold black caps toggle-sibling">
+                  Renderers
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#drawlines'
+                        class='regular pre-open'>
+                        .drawLines
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawdots'
+                        class='regular pre-open'>
+                        .drawDots
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawrect'
+                        class='regular pre-open'>
+                        .drawRect
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawdiamond'
+                        class='regular pre-open'>
+                        .drawDiamond
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawtriangle'
+                        class='regular pre-open'>
+                        .drawTriangle
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawpolygon'
+                        class='regular pre-open'>
+                        .drawPolygon
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawinregion'
+                        class='regular pre-open'>
+                        .drawInRegion
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawimagefull'
+                        class='regular pre-open'>
+                        .drawImageFull
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawimagecrop'
+                        class='regular pre-open'>
+                        .drawImageCrop
+                      </a></li>
+                    
+                      <li><a
+                        href='#drawdotdebug'
+                        class='regular pre-open'>
+                        .drawDotDebug
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#walkers'
+                  class="h5 bold black caps toggle-sibling">
+                  Walkers
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#linearwalker'
+                        class='regular pre-open'>
+                        .linearWalker
+                      </a></li>
+                    
+                      <li><a
+                        href='#radialwalker'
+                        class='regular pre-open'>
+                        .radialWalker
+                      </a></li>
+                    
+                      <li><a
+                        href='#randomaccess'
+                        class='regular pre-open'>
+                        .randomAccess
+                      </a></li>
+                    
+                      <li><a
+                        href='#arbitraryregion'
+                        class='regular pre-open'>
+                        .arbitraryRegion
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#boundaryintersect'
+                  class="">
+                  boundaryIntersect
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#cellsfromgrid'
+                  class="">
+                  cellsFromGrid
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#region'
+                  class="">
+                  Region
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#radialregion'
+                  class="">
+                  RadialRegion
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='generators'>
+      Generators
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>Generators</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='squaregrid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>squareGrid(config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Generates a uniform rectangular grid of points spaced <code>cellSize</code> apart.
+Points are yielded column-major (all rows of column 0, then column 1, etc.).</p>
+
+    <div class='pre p1 fill-light mt0'>squareGrid(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.width</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Canvas width in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.height</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Canvas height in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.cellSize</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Spacing between adjacent grid points in pixels.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">squareGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">40</span> })
+<span class="hljs-title function_">drawLines</span>(sketch, grid, grid.<span class="hljs-property">colSize</span>)</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Combine with modifiers via pipe</span>
+<span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">pipe</span>(
+  <span class="hljs-title function_">squareGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">40</span> }),
+  <span class="hljs-title function_">gridWithPerlin</span>(sketch, { <span class="hljs-attr">level</span>: <span class="hljs-number">8</span> })
+)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='isometricgrid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>isometricGrid(config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Generates an isometric (diamond) grid that fills the canvas.
+Tile width equals <code>cellSize</code>; tile height is <code>cellSize / 2</code>.
+The grid is horizontally centred and covers the full canvas height.</p>
+
+    <div class='pre p1 fill-light mt0'>isometricGrid(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.width</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Canvas width in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.height</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Canvas height in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.cellSize</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Width of each diamond tile in pixels.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">isometricGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">60</span> })
+<span class="hljs-title function_">drawLines</span>(sketch, grid, grid.<span class="hljs-property">colSize</span>)</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Walk cells and colour by column</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(<span class="hljs-title function_">isometricGrid</span>(config))) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[region.<span class="hljs-property">index</span>.<span class="hljs-property">col</span> % colors.<span class="hljs-property">length</span>])
+  <span class="hljs-title function_">drawRect</span>(sketch, region)
+}</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fibonaccigrid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>fibonacciGrid(config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Generates a grid whose column and row positions follow the Fibonacci sequence
+scaled by <code>cellSize</code>. Spacing grows exponentially, creating a natural
+logarithmic distribution of cells across the canvas.</p>
+
+    <div class='pre p1 fill-light mt0'>fibonacciGrid(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.width</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Maximum x extent in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.height</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Maximum y extent in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.cellSize</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Multiplier applied to each Fibonacci number.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">fibonacciGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">10</span> })
+<span class="hljs-title function_">drawLines</span>(sketch, grid, grid.<span class="hljs-property">colSize</span>)</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Smaller cellSize → more Fibonacci steps, denser grid near origin</span>
+<span class="hljs-title function_">pipe</span>(
+  <span class="hljs-title function_">fibonacciGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">5</span> }),
+  <span class="hljs-title function_">gridWithPerlin</span>(sketch, { <span class="hljs-attr">level</span>: <span class="hljs-number">6</span> })
+)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='randomgrid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>randomGrid()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Placeholder grid with a small fixed set of points.
+Useful as a quick stand-in while designing a custom generator.
+<code>colSize</code> is null — walkers and renderers that depend on column structure
+will fall back to sequential behaviour.</p>
+
+    <div class='pre p1 fill-light mt0'>randomGrid(): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">drawDots</span>(sketch, <span class="hljs-title function_">randomGrid</span>())</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='perspectivegrid1'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>perspectiveGrid1(config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Generates a one-point perspective grid that fills the entire canvas.</p>
+<p>Reference points are sampled along a single continuous arc of the canvas
+boundary (the "lower U": left edge from vpY downward → bottom edge →
+right edge back up to vpY).  For each reference point P on the arc, the
+chord is extended through the vanishing point to the exit point Q on the
+opposite boundary.  Because P moves continuously along the arc, adjacent
+chords always share nearby endpoints — eliminating the angle-flip that
+caused cross-lines to jump.</p>
+<p>With drawLines:</p>
+<ul>
+<li>within-column connections  → the converging radial lines</li>
+<li>same-step across columns   → concentric cross-lines that converge at VP</li>
+</ul>
+<p>Config is forward-compatible with multi-point perspective.  Future
+generators (perspectiveGrid2, perspectiveGrid3, …) accept the same fields
+with additional entries in vanishingPoints.</p>
+
+    <div class='pre p1 fill-light mt0'>perspectiveGrid1(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.width</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Canvas width in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.height</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Canvas height in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.cellSize</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Spacing between radial lines along the
+reference arc, and approximate spacing between cross-lines.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.vanishingPoints</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]></code>
+  </td>
+  <td class='break-word'><span>Array of [x, y]
+vanishing point coordinates.  perspectiveGrid1 reads only
+vanishingPoints[0].  Keep this consistent across all perspective variants.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">perspectiveGrid1</span>({
+  <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">60</span>,
+  <span class="hljs-attr">vanishingPoints</span>: [[<span class="hljs-number">300</span>, <span class="hljs-number">300</span>]]
+})</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='regiongrid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>regionGrid(region, config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Generates a grid of points fitted inside a region using bilinear interpolation
+across the region's corners. The output is a standard enhanced-iterable grid,
+compatible with all walkers, modifiers, and renderers.</p>
+
+    <div class='pre p1 fill-light mt0'>regionGrid(region: <a href="#region">Region</a>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object with 
+<code>.corners</code>
+ (TL, TR, BR, BL).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.cols</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Number of columns of cells (points = cols + 1).
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.rows</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Number of rows of cells (points = rows + 1).
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Fill a region with a sub-grid and walk it</span>
+<span class="hljs-keyword">const</span> localGrid = <span class="hljs-title function_">regionGrid</span>(brushRegion, { <span class="hljs-attr">cols</span>: <span class="hljs-number">6</span>, <span class="hljs-attr">rows</span>: <span class="hljs-number">4</span> })
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> cell <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(localGrid)) {
+  <span class="hljs-title function_">drawDots</span>(sketch, cell, <span class="hljs-number">6</span>)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Clip to the region boundary and draw a nested pattern</span>
+sketch.<span class="hljs-title function_">beginClip</span>()
+<span class="hljs-title function_">drawPolygon</span>(sketch, region)
+sketch.<span class="hljs-title function_">endClip</span>()
+<span class="hljs-title function_">drawLines</span>(sketch, <span class="hljs-title function_">regionGrid</span>(region, { <span class="hljs-attr">cols</span>: <span class="hljs-number">8</span>, <span class="hljs-attr">rows</span>: <span class="hljs-number">5</span> }), <span class="hljs-number">6</span>)
+sketch.<span class="hljs-title function_">resetClip</span>()</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='modifiers'>
+      Modifiers
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>Modifiers</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='gridwithperlin'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>gridWithPerlin(sketch, options = {})</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Displaces each grid point by a Perlin noise value sampled at its own
+coordinates. Both axes are shifted by the same noise sample, producing a
+diagonal warp. Larger <code>level</code> values create more visible distortion.</p>
+
+    <div class='pre p1 fill-light mt0'>gridWithPerlin(sketch: p5, options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?): function (grid): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance (provides 
+<code>sketch.noise</code>
+).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?
+            = <code>{}</code>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.level</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  
+    (default <code>4</code>)
+  </td>
+  <td class='break-word'><span>Maximum displacement in pixels.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>function (grid): EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Subtle warp on a square grid</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">squareGrid</span>(config), <span class="hljs-title function_">gridWithPerlin</span>(sketch, { <span class="hljs-attr">level</span>: <span class="hljs-number">8</span> }))</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Heavy distortion inside a region sub-grid</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">regionGrid</span>(brushRegion, { <span class="hljs-attr">cols</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">rows</span>: <span class="hljs-number">6</span> }), <span class="hljs-title function_">gridWithPerlin</span>(sketch, { <span class="hljs-attr">level</span>: <span class="hljs-number">30</span> }))</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='offset'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>offset(config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Shifts each grid point along one axis by an amount that accumulates with
+each column (or row). Column 0 is unshifted, column 1 shifts by <code>amount</code>,
+column 2 by <code>2 * amount</code>, and so on — creating a shear effect.</p>
+
+    <div class='pre p1 fill-light mt0'>offset(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): function (grid): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.axis</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+  
+    (default <code>&#39;column&#39;</code>)
+  </td>
+  <td class='break-word'><span>Which index drives the shift.
+'column': shift vertically, increasing per column.
+'row':    shift horizontally, increasing per row.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.amount</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Pixels to shift per step.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>function (grid): EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Shear columns downward — each column 5px lower than the last</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">squareGrid</span>(config), <span class="hljs-title function_">offset</span>({ <span class="hljs-attr">amount</span>: <span class="hljs-number">5</span> }))</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Shear rows rightward</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">squareGrid</span>(config), <span class="hljs-title function_">offset</span>({ <span class="hljs-attr">axis</span>: <span class="hljs-string">&#x27;row&#x27;</span>, <span class="hljs-attr">amount</span>: <span class="hljs-number">8</span> }))</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='zigzagoffset'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>zigzagOffset(config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Alternates the shift direction each column (or row), producing a zigzag
+or brick-like stagger. Even indices shift by <code>+amount</code>, odd by <code>-amount</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>zigzagOffset(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): function (grid): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.axis</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+  
+    (default <code>&#39;column&#39;</code>)
+  </td>
+  <td class='break-word'><span>Which index alternates.
+'column': alternate vertically per column (brick-row effect).
+'row':    alternate horizontally per row.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.amount</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Pixels to shift in each direction.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>function (grid): EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Classic brick-offset — every other column shifted down</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">squareGrid</span>(config), <span class="hljs-title function_">zigzagOffset</span>({ <span class="hljs-attr">amount</span>: <span class="hljs-number">20</span> }))</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Horizontal zigzag per row</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">squareGrid</span>(config), <span class="hljs-title function_">zigzagOffset</span>({ <span class="hljs-attr">axis</span>: <span class="hljs-string">&#x27;row&#x27;</span>, <span class="hljs-attr">amount</span>: <span class="hljs-number">15</span> }))</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='translate'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>translate(delta)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Shifts all grid points by a fixed [dx, dy] vector and updates the grid's
+<code>origin</code> metadata accordingly. Useful for repositioning a grid on canvas
+without recomputing it.</p>
+
+    <div class='pre p1 fill-light mt0'>translate(delta: [<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]): function (grid): EnhancedIterable</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>delta</span> <code class='quiet'>([<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>])</code>
+	    [dx, dy] translation vector in pixels.
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>delta.0</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>delta.1</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>function (grid): EnhancedIterable</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Move a grid 100px right and 50px down</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">squareGrid</span>(config), <span class="hljs-title function_">translate</span>([<span class="hljs-number">100</span>, <span class="hljs-number">50</span>]))</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Centre a grid that starts at the origin</span>
+<span class="hljs-keyword">const</span> grid = <span class="hljs-title function_">squareGrid</span>({ <span class="hljs-attr">width</span>: <span class="hljs-number">400</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">400</span>, <span class="hljs-attr">cellSize</span>: <span class="hljs-number">40</span> })
+<span class="hljs-title function_">pipe</span>(grid, <span class="hljs-title function_">translate</span>([<span class="hljs-number">100</span>, <span class="hljs-number">100</span>]))</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='sine'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>sine(config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Displaces grid points along one axis using a sine wave driven by the other axis.</p>
+
+    <div class='pre p1 fill-light mt0'>sine(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+            = <code>{}</code>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.amplitude</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  
+    (default <code>20</code>)
+  </td>
+  <td class='break-word'><span>Peak displacement in pixels.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.frequency</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  
+    (default <code>1</code>)
+  </td>
+  <td class='break-word'><span>Cycles across the full grid width/height.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.phase</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  
+    (default <code>0</code>)
+  </td>
+  <td class='break-word'><span>Phase offset in radians.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.axis</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+  
+    (default <code>&#39;y&#39;</code>)
+  </td>
+  <td class='break-word'><span>Axis to displace: 'x' or 'y'.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.inputAxis</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+  
+    (default <code>&#39;x&#39;</code>)
+  </td>
+  <td class='break-word'><span>Axis used as the sine input: 'x' or 'y'.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Ripple rows vertically — one full wave across the grid width</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">squareGrid</span>(config), <span class="hljs-title function_">sine</span>({ <span class="hljs-attr">amplitude</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">frequency</span>: <span class="hljs-number">1</span> }))</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Animate the wave by advancing the phase each frame</span>
+<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">squareGrid</span>(config), <span class="hljs-title function_">sine</span>({ <span class="hljs-attr">amplitude</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">frequency</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">phase</span>: sketch.<span class="hljs-property">frameCount</span> * <span class="hljs-number">0.05</span> }))</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Stack two waves — vertical ripple on rows, horizontal ripple on columns</span>
+<span class="hljs-title function_">pipe</span>(
+  <span class="hljs-title function_">squareGrid</span>(config),
+  <span class="hljs-title function_">sine</span>({ <span class="hljs-attr">amplitude</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">frequency</span>: <span class="hljs-number">2</span> }),
+  <span class="hljs-title function_">sine</span>({ <span class="hljs-attr">amplitude</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">frequency</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">axis</span>: <span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-attr">inputAxis</span>: <span class="hljs-string">&#x27;y&#x27;</span> })
+)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='renderers'>
+      Renderers
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>Renderers</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='drawlines'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawLines(sketch, grid)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Draws the grid as a mesh of lines. With a valid <code>colSize</code>, draws both
+within-column (vertical) and across-column (horizontal) connections,
+producing a proper grid mesh. Without <code>colSize</code>, falls back to connecting
+points sequentially.</p>
+
+    <div class='pre p1 fill-light mt0'>drawLines(sketch: p5, grid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>grid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    A grid object from a generator or pipe.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Draw a standard square grid</span>
+<span class="hljs-title function_">drawLines</span>(sketch, gridObj)</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Draw a perspective grid — within-column lines converge, cross-lines arc</span>
+<span class="hljs-title function_">drawLines</span>(sketch, <span class="hljs-title function_">perspectiveGrid1</span>(config))</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawdots'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawDots(sketch, region, size)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Draws a circle at the centroid of a region.</p>
+
+    <div class='pre p1 fill-light mt0'>drawDots(sketch: p5, region: <a href="#region">Region</a>, size: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object from a walker.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>size</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>4</code>)</code>
+	    Diameter of the dot in pixels.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[region.<span class="hljs-property">index</span>.<span class="hljs-property">col</span> % colors.<span class="hljs-property">length</span>])
+  <span class="hljs-title function_">drawDots</span>(sketch, region, <span class="hljs-number">8</span>)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Use inside a clipped regionGrid for polka-dot patterns</span>
+<span class="hljs-keyword">const</span> localGrid = <span class="hljs-title function_">regionGrid</span>(brushRegion, { <span class="hljs-attr">cols</span>: <span class="hljs-number">8</span>, <span class="hljs-attr">rows</span>: <span class="hljs-number">5</span> })
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> cell <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(localGrid)) <span class="hljs-title function_">drawDots</span>(sketch, cell, <span class="hljs-number">12</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawrect'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawRect(sketch, region)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Draws a filled quadrilateral that covers the full extent of a region,
+mapping corners via bilinear interpolation. Works correctly on distorted
+grids (isometric, perlin, perspective).</p>
+
+    <div class='pre p1 fill-light mt0'>drawRect(sketch: p5, region: <a href="#region">Region</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object from a walker.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[region.<span class="hljs-property">index</span>.<span class="hljs-property">row</span> % colors.<span class="hljs-property">length</span>])
+  <span class="hljs-title function_">drawRect</span>(sketch, region)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Draw a single merged block</span>
+<span class="hljs-title function_">drawRect</span>(sketch, <span class="hljs-title function_">randomAccess</span>(gridObj, { <span class="hljs-attr">top</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">left</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">bottom</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">right</span>: <span class="hljs-number">5</span> }))</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawdiamond'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawDiamond(sketch, region)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Draws a diamond (rotated square) inscribed within a region by connecting
+the mid-points of each edge via bilinear interpolation.</p>
+
+    <div class='pre p1 fill-light mt0'>drawDiamond(sketch: p5, region: <a href="#region">Region</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object from a walker.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[<span class="hljs-number">3</span>])
+  <span class="hljs-title function_">drawDiamond</span>(sketch, region)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Layer a diamond over a filled rect for a nested effect</span>
+<span class="hljs-title function_">drawRect</span>(sketch, region)
+sketch.<span class="hljs-title function_">fill</span>(accentColor)
+<span class="hljs-title function_">drawDiamond</span>(sketch, region)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawtriangle'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawTriangle(sketch, region)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Draws an upward-pointing triangle inscribed within a region. The apex sits
+at the top-centre and the base spans the full bottom edge, mapped via
+bilinear interpolation so it follows distorted grid cells correctly.</p>
+
+    <div class='pre p1 fill-light mt0'>drawTriangle(sketch: p5, region: <a href="#region">Region</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object from a walker.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[<span class="hljs-number">2</span>])
+  <span class="hljs-title function_">drawTriangle</span>(sketch, region)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Alternate triangles and diamonds for a decorative pattern</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) {
+  region.<span class="hljs-property">index</span>.<span class="hljs-property">col</span> % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>
+    ? <span class="hljs-title function_">drawTriangle</span>(sketch, region)
+    : <span class="hljs-title function_">drawDiamond</span>(sketch, region)
+}</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawpolygon'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawPolygon(sketch, region)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Draws a closed polygon using all boundary points of a region.
+Uses <code>region.boundary</code> when available (multi-point perimeter from randomAccess
+or arbitraryRegion), falling back to <code>region.corners</code> for single cells.</p>
+
+    <div class='pre p1 fill-light mt0'>drawPolygon(sketch: p5, region: <a href="#region">Region</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object from a walker.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Draw the exact outline of an arbitraryRegion</span>
+<span class="hljs-title function_">drawPolygon</span>(sketch, <span class="hljs-title function_">arbitraryRegion</span>(gridObj, indices))</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Works on any region — single cells use the 4 corners</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) <span class="hljs-title function_">drawPolygon</span>(sketch, region)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawinregion'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawInRegion(sketch, region, fn)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Calls <code>fn</code> with a <code>map(u, v)</code> function that converts proportional
+coordinates (u and v each in 0–1) to actual pixel coordinates inside
+the region using bilinear interpolation across its corners.</p>
+<p>Corner winding (matching cells.js):
+corners[0] = top-left, corners[1] = top-right,
+corners[2] = bottom-right, corners[3] = bottom-left</p>
+
+    <div class='pre p1 fill-light mt0'>drawInRegion(sketch: p5, region: <a href="#region">Region</a>, fn: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object from a walker (has 
+<code>.corners</code>
+).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fn</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    Callback receiving 
+<code>map(u, v) => [x, y]</code>
+.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">drawInRegion</span>(sketch, region, <span class="hljs-function">(<span class="hljs-params">map</span>) =&gt;</span> {
+  sketch.<span class="hljs-title function_">beginShape</span>()
+  sketch.<span class="hljs-title function_">vertex</span>(...<span class="hljs-title function_">map</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>))
+  sketch.<span class="hljs-title function_">vertex</span>(...<span class="hljs-title function_">map</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>))
+  sketch.<span class="hljs-title function_">vertex</span>(...<span class="hljs-title function_">map</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))
+  sketch.<span class="hljs-title function_">vertex</span>(...<span class="hljs-title function_">map</span>(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))
+  sketch.<span class="hljs-title function_">endShape</span>(sketch.<span class="hljs-property">CLOSE</span>)
+})</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawimagefull'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawImageFull(sketch, region, img)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Maps the entire image across the region using texture mapping.
+Requires WEBGL mode.</p>
+
+    <div class='pre p1 fill-light mt0'>drawImageFull(sketch: p5, region: <a href="#region">Region</a>, img: p5.Image)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object from a walker.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>img</span> <code class='quiet'>(p5.Image)</code>
+	    The image to draw.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Stretch an image across every cell</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) <span class="hljs-title function_">drawImageFull</span>(sketch, region, img)</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Fill a merged block from randomAccess</span>
+<span class="hljs-title function_">drawImageFull</span>(sketch, <span class="hljs-title function_">randomAccess</span>(gridObj, { <span class="hljs-attr">top</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">left</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">bottom</span>: <span class="hljs-number">6</span>, <span class="hljs-attr">right</span>: <span class="hljs-number">8</span> }), img)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawimagecrop'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawImageCrop(sketch, region, img, u1, v1, u2, v2)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Maps a cropped portion of an image into the region using texture mapping.
+Crop bounds are proportional (0–1) relative to the image size.
+Requires WEBGL mode.</p>
+
+    <div class='pre p1 fill-light mt0'>drawImageCrop(sketch: p5, region: <a href="#region">Region</a>, img: p5.Image, u1: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, v1: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, u2: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, v2: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>region</span> <code class='quiet'>(<a href="#region">Region</a>)</code>
+	    A region object from a walker.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>img</span> <code class='quiet'>(p5.Image)</code>
+	    The image to sample from.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>u1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Left edge of crop (0–1).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>v1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Top edge of crop (0–1).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>u2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Right edge of crop (0–1).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>v2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Bottom edge of crop (0–1).
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Sample the top-left quadrant of an image into each cell</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) {
+  <span class="hljs-title function_">drawImageCrop</span>(sketch, region, img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Tile different horizontal slices of an image across columns</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) {
+  <span class="hljs-keyword">const</span> u1 = region.<span class="hljs-property">index</span>.<span class="hljs-property">col</span> / numCols
+  <span class="hljs-keyword">const</span> u2 = (region.<span class="hljs-property">index</span>.<span class="hljs-property">col</span> + <span class="hljs-number">1</span>) / numCols
+  <span class="hljs-title function_">drawImageCrop</span>(sketch, region, img, u1, <span class="hljs-number">0</span>, u2, <span class="hljs-number">1</span>)
+}</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='drawdotdebug'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>drawDotDebug(sketch, grid, colSize, size, font = null, captureState = null)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Draws a debug dot at every grid point. Hover a dot to see its col/row index.
+Pass a captureState from createCapture() to enable interactive selection.</p>
+<p>In WEBGL mode a loaded font is required for hover labels. If omitted, dots
+still render but no label appears on hover.</p>
+
+    <div class='pre p1 fill-light mt0'>drawDotDebug(sketch: p5, grid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, colSize: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, size: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, font: p5.Font?, captureState: CaptureState?)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sketch</span> <code class='quiet'>(p5)</code>
+	    The p5 instance.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>grid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    A grid object from a generator or pipe.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>colSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Number of points per column (grid.colSize).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>size</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>8</code>)</code>
+	    Diameter of each dot in pixels.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>font</span> <code class='quiet'>(p5.Font?
+            = <code>null</code>)</code>
+	    Font loaded via loadFont (required in WEBGL).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>captureState</span> <code class='quiet'>(CaptureState?
+            = <code>null</code>)</code>
+	    State object from createCapture().state.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Basic usage</span>
+<span class="hljs-title function_">drawDotDebug</span>(sketch, gridObj, gridObj.<span class="hljs-property">colSize</span>, <span class="hljs-number">8</span>, font)</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// With interactive capture</span>
+<span class="hljs-keyword">const</span> capture = <span class="hljs-title function_">createCapture</span>(sketch)
+<span class="hljs-title function_">drawDotDebug</span>(sketch, gridObj, gridObj.<span class="hljs-property">colSize</span>, <span class="hljs-number">8</span>, font, capture.<span class="hljs-property">state</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='walkers'>
+      Walkers
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>Walkers</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='linearwalker'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>linearWalker(grid, config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Walks a grid linearly, emitting one region (cell) at a time.</p>
+
+    <div class='pre p1 fill-light mt0'>linearWalker(grid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): Iterable&#x3C;<a href="#region">Region</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>grid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    A grid object as returned by a generator or pipe.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+            = <code>{}</code>)</code>
+	    Optional configuration.
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.direction</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+  
+    (default <code>&#39;row-first&#39;</code>)
+  </td>
+  <td class='break-word'><span>Iteration order.
+'row-first': sweep left→right across columns, then advance rows (default).
+'col-first': sweep top→bottom across rows, then advance columns.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Iterable&#x3C;<a href="#region">Region</a>></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj)) {
+  sketch.<span class="hljs-title function_">fill</span>(colors[region.<span class="hljs-property">index</span>.<span class="hljs-property">col</span> % colors.<span class="hljs-property">length</span>])
+  <span class="hljs-title function_">drawRect</span>(sketch, region)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Column-first order</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">linearWalker</span>(gridObj, { <span class="hljs-attr">direction</span>: <span class="hljs-string">&#x27;col-first&#x27;</span> })) {
+  <span class="hljs-title function_">drawDiamond</span>(sketch, region)
+}</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='radialwalker'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>radialWalker(grid, config)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Walks a grid radially, emitting regions in order of their distance from a
+given origin point — closest regions first. Works for any grid shape since
+distance is measured from each region's centroid.</p>
+
+    <div class='pre p1 fill-light mt0'>radialWalker(grid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): Iterable&#x3C;<a href="#radialregion">RadialRegion</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>grid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    A grid object as returned by a generator or pipe.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+            = <code>{}</code>)</code>
+	    Configuration.
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.origin</span> <code class='quiet'>[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]</code>
+  </td>
+  <td class='break-word'><span>[x, y] point to measure distance from.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Iterable&#x3C;<a href="#radialregion">RadialRegion</a>></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Colour cells by distance from canvas centre</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">radialWalker</span>(gridObj, { <span class="hljs-attr">origin</span>: [<span class="hljs-number">300</span>, <span class="hljs-number">300</span>] })) {
+  <span class="hljs-keyword">const</span> t = sketch.<span class="hljs-title function_">map</span>(region.<span class="hljs-property">distanceToOrigin</span>, <span class="hljs-number">0</span>, <span class="hljs-number">420</span>, <span class="hljs-number">0</span>, colors.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>)
+  sketch.<span class="hljs-title function_">fill</span>(colors[<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(t)])
+  <span class="hljs-title function_">drawRect</span>(sketch, region)
+}</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Animate an expanding ring effect</span>
+<span class="hljs-keyword">const</span> maxDist = sketch.<span class="hljs-property">frameCount</span> * <span class="hljs-number">2</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> region <span class="hljs-keyword">of</span> <span class="hljs-title function_">radialWalker</span>(gridObj, { <span class="hljs-attr">origin</span>: [<span class="hljs-number">300</span>, <span class="hljs-number">300</span>] })) {
+  <span class="hljs-keyword">if</span> (region.<span class="hljs-property">distanceToOrigin</span> &lt; maxDist) <span class="hljs-title function_">drawDiamond</span>(sketch, region)
+}</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='randomaccess'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>randomAccess(grid, bounds)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns a single merged region whose corners trace the outer boundary of
+the rectangular block of cells from (left, top) to (right, bottom).</p>
+<p>For distorted grids the boundary will have more than 4 corners since each
+grid point is independently positioned.</p>
+
+    <div class='pre p1 fill-light mt0'>randomAccess(grid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, bounds: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#region">Region</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>grid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    A grid object as returned by a generator or pipe.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>bounds</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Cell index bounds (all inclusive).
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>bounds.top</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>First row to include.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>bounds.left</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>First col to include.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>bounds.bottom</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Last row to include.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>bounds.right</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+  </td>
+  <td class='break-word'><span>Last col to include.
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#region">Region</a></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='arbitraryregion'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>arbitraryRegion(grid, indices)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Constructs a region from an arbitrary ordered list of cell indices.
+Corners are the actual grid points at those indices, in the order given.
+UV coordinates are approximated from the bounding box of the corners.</p>
+<p>Pair with createCapture() to interactively collect indices, then paste
+the logged output here.</p>
+
+    <div class='pre p1 fill-light mt0'>arbitraryRegion(grid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, indices: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;{col: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, row: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>}>): <a href="#region">Region</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>grid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    A grid object from a generator or pipe.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>indices</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;{col: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, row: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>}>)</code>
+	    Ordered list of cell indices.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#region">Region</a></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Indices collected via createCapture, then pasted in:</span>
+<span class="hljs-keyword">const</span> region = <span class="hljs-title function_">arbitraryRegion</span>(gridObj, [
+  { <span class="hljs-attr">col</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">row</span>: <span class="hljs-number">2</span> },
+  { <span class="hljs-attr">col</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">row</span>: <span class="hljs-number">2</span> },
+  { <span class="hljs-attr">col</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">row</span>: <span class="hljs-number">5</span> },
+  { <span class="hljs-attr">col</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">row</span>: <span class="hljs-number">5</span> },
+])
+<span class="hljs-title function_">drawImageFull</span>(sketch, region, img)</pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Works with any draw_ function</span>
+<span class="hljs-title function_">drawRect</span>(sketch, <span class="hljs-title function_">arbitraryRegion</span>(gridObj, indices))</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='boundaryintersect'>
+      boundaryIntersect
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Finds where a ray from (ox, oy) in direction (dx, dy) first exits the
+canvas boundary.  Returns the intersection point.</p>
+
+    <div class='pre p1 fill-light mt0'>boundaryIntersect(ox: any, oy: any, dx: any, dy: any, width: any, height: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ox</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>oy</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dx</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dy</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>width</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>height</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='cellsfromgrid'>
+      cellsFromGrid
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Builds all cell regions from a grid object.
+Shared by all walkers so the cell-extraction logic lives in one place.</p>
+
+    <div class='pre p1 fill-light mt0'>cellsFromGrid(grid: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#region">Region</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>grid</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    A grid object (generator or pipe result).
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#region">Region</a>></code>:
+        Flat array of all regions in column-major order.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='region'>
+      Region
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>Region</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>corners</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]>)</code>
+          : Corner points of the cell (n points).
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>center</span> <code class='quiet'>([<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>])</code>
+          : Centroid of the corners.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>index</span> <code class='quiet'>({col: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, row: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>})</code>
+          : Grid position of this cell.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='radialregion'>
+      RadialRegion
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>RadialRegion</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>corners</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]>)</code>
+          : Corner points of the cell (n points).
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>center</span> <code class='quiet'>([<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>])</code>
+          : Centroid of the corners.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>distanceToOrigin</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : Euclidean distance from origin to center.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>index</span> <code class='quiet'>({col: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, row: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>})</code>
+          : Grid position of this cell.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

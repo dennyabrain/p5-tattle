@@ -53,8 +53,8 @@ new p5((sketch) => {
 
   const capture = createCapture(sketch)
 
-  const gridObj = pipe(
-    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 40 })
+  const grid = pipe(
+    perspectiveGrid1({ width: WIDTH, height: HEIGHT, cellSize: 80, vanishingPoints: [[WIDTH / 2, HEIGHT / 2]] })
   )
 
   sketch.setup = () => {
@@ -65,7 +65,7 @@ new p5((sketch) => {
   }
 
   sketch.keyPressed = () => capture.keyPressed()
-  sketch.mousePressed = () => capture.mousePressed(gridObj, gridObj.colSize)
+  sketch.mousePressed = () => capture.mousePressed(grid, grid.colSize)
 
   sketch.draw = () => {
     if (!img) return
@@ -76,7 +76,8 @@ new p5((sketch) => {
     sketch.translate(-WIDTH / 2, -HEIGHT / 2)
 
     sketch.stroke(colors[3])
-    drawLines(sketch, gridObj)
+    drawLines(sketch, grid)
+    // drawDotDebug(sketch, grid, grid.colSize, 8, font, capture.state)
   }
 })
 

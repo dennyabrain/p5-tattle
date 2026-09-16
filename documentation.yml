@@ -1,0 +1,34 @@
+toc:
+  - name: Generators
+    children:
+      - squareGrid
+      - isometricGrid
+      - fibonacciGrid
+      - randomGrid
+      - perspectiveGrid1
+      - regionGrid
+  - name: Modifiers
+    children:
+      - gridWithPerlin
+      - offset
+      - zigzagOffset
+      - translate
+      - sine
+  - name: Renderers
+    children:
+      - drawLines
+      - drawDots
+      - drawRect
+      - drawDiamond
+      - drawTriangle
+      - drawPolygon
+      - drawInRegion
+      - drawImageFull
+      - drawImageCrop
+      - drawDotDebug
+  - name: Walkers
+    children:
+      - linearWalker
+      - radialWalker
+      - randomAccess
+      - arbitraryRegion
