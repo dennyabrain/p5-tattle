@@ -1,4 +1,22 @@
-export function drawLines(sketch, grid, colSize) {
+/**
+ * Draws the grid as a mesh of lines. With a valid `colSize`, draws both
+ * within-column (vertical) and across-column (horizontal) connections,
+ * producing a proper grid mesh. Without `colSize`, falls back to connecting
+ * points sequentially.
+ *
+ * @param {p5}     sketch  - The p5 instance.
+ * @param {object} grid    - A grid object from a generator or pipe.
+ *
+ * @example
+ * // Draw a standard square grid
+ * drawLines(sketch, gridObj)
+ *
+ * @example
+ * // Draw a perspective grid — within-column lines converge, cross-lines arc
+ * drawLines(sketch, perspectiveGrid1(config))
+ */
+export function drawLines(sketch, grid) {
+  const colSize = grid.colSize
   const points = [...grid]
 
   if (!colSize) {

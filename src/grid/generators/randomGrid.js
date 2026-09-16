@@ -1,3 +1,14 @@
+/**
+ * Placeholder grid with a small fixed set of points.
+ * Useful as a quick stand-in while designing a custom generator.
+ * `colSize` is null — walkers and renderers that depend on column structure
+ * will fall back to sequential behaviour.
+ *
+ * @returns {EnhancedIterable}
+ *
+ * @example
+ * drawDots(sketch, randomGrid())
+ */
 export function randomGrid() {
   return {
     colSize: null,

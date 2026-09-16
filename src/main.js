@@ -7,7 +7,7 @@ import { randomAccess, arbitraryRegion } from './grid/walkers'
 import { sine } from './grid/modifiers'
 import { createCapture } from './grid/capture'
 
-const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1 } = generators
+const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1, regionGrid } = generators
 const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
 const { drawDots, drawLines } = renderers
 const { linearWalker, radialWalker } = walkers
@@ -23,23 +23,24 @@ const colors = Object.keys(brand)
   }, [])
 
 
-function drawPattern(sketch, region) {
-  const cols = 15
-  const rows = 8
-  const dotSize = 16
+function drawPattern(sketch, region, img) {
+  const dotSize = 1
 
   sketch.beginClip()
   drawPolygon(sketch, region)
   sketch.endClip()
 
-  drawInRegion(sketch, region, (map) => {
-    for (let c = 0; c <= cols; c++) {
-      for (let r = 0; r <= rows; r++) {
-        const [x, y] = map(c / cols, r / rows)
-        sketch.circle(x, y, dotSize)
-      }
-    }
-  })
+  const localGrid = pipe(
+    regionGrid(region, { cols: 40, rows: 20 }),
+    sine({ amplitude: 20, frequency: 2, axis: 'x', inputAxis: 'y' })
+    // gridWithPerlin(sketch, { level: 30 })
+  )
+
+  for (const cell of linearWalker(localGrid)) {
+    // drawDiamond(sketch, cell, dotSize)
+    // drawImageFull(sketch, cell, img)
+    drawImageCrop(sketch, cell, img, 0.3, 0.3, 0.8, 0.8)
+  }
 
   sketch.resetClip()
 }
@@ -47,77 +48,20 @@ function drawPattern(sketch, region) {
 
 
 new p5((sketch) => {
-  const gridConfig = { width: 600, height: 600, cellSize: 40, vanishingPoints: [[300, 300]] }
-  const gridObj = pipe(
-    squareGrid(gridConfig),
-    zigzagOffset({ amount: 4 }),
-    // gridWithPerlin(sketch, { level: 8 }),
-    // sine({ amplitude: 20, frequency: 20 }),
-    // sine({ amplitude: 60, frequency: 10, phase: 3, axis: 'x', inputAxis: 'y' })
-  )
 
-  // const regions = [...radialWalker(gridObj, { origin: [300, 300] })]
-  let regions, imgRegion, brushRegion
   let img, font
 
   const capture = createCapture(sketch)
+
+  const gridObj = pipe(
+    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 40 })
+  )
 
   sketch.setup = () => {
     sketch.createCanvas(WIDTH, HEIGHT, sketch.WEBGL)
     sketch.textureMode(sketch.NORMAL)
     sketch.loadImage('/tmp/dithered-image.png', (loaded) => { img = loaded })
     sketch.loadFont('/tmp/roboto.ttf', (loaded) => { font = loaded })
-    regions = [...linearWalker(gridObj)]
-    brushRegion = arbitraryRegion(gridObj, [
-      {
-        "col": 4,
-        "row": 7
-      },
-      {
-        "col": 5,
-        "row": 7
-      },
-      {
-        "col": 6,
-        "row": 7
-      },
-      {
-        "col": 7,
-        "row": 7
-      },
-      {
-        "col": 8,
-        "row": 7
-      },
-      {
-        "col": 11,
-        "row": 11
-      },
-      {
-        "col": 9,
-        "row": 13
-      },
-      {
-        "col": 6,
-        "row": 12
-      },
-      {
-        "col": 4,
-        "row": 12
-      },
-      {
-        "col": 2,
-        "row": 11
-      },
-      {
-        "col": 2,
-        "row": 9
-      },
-      {
-        "col": 3,
-        "row": 8
-      }
-    ])
   }
 
   sketch.keyPressed = () => capture.keyPressed()
@@ -131,49 +75,8 @@ new p5((sketch) => {
     // WEBGL origin is canvas center — shift it to top-left to keep grid coords working
     sketch.translate(-WIDTH / 2, -HEIGHT / 2)
 
-    // drawLines(sketch, gridObj, gridObj.colSize)
-    // drawDotDebug(sketch, gridObj, gridObj.colSize, 8, font, capture.state)
-
-    sketch.fill(colors[4])
-    sketch.stroke(darken(sketch, colors[4], 4))
-    // drawPolygon(sketch, brushRegion)
-
-    // drawImageFull(sketch, brushRegion, img)
-    drawPattern(sketch, brushRegion)
-
-    for (const region of regions) {
-      // colour each cell based on its column index
-      // var colorMap = Math.floor(sketch.map(region.distanceToOrigin, 0, 600, 0, colors.length - 1))
-      // var darkOffset = sketch.map(region.distanceToOrigin, 0, 600, 0, 360)
-      // var baseColor = colors[5]
-      // var colorbg = darken(sketch, colorMap, darkOffset)
-      sketch.fill(colors[1])
-      // drawDots(sketch, region, 8)
-
-
-
-      // drawImageFull(sketch, region, img)
-      // drawImageCrop(sketch, region, img, 0, 1, 0.2, 0.5)
-      // console.log(region.distanceToOrigin);
-    }
-
-    // let i = 0
-    // while (i < 16) {
-    //   imgRegion = randomAccess(gridObj, { top: 0, left: i, bottom: 40, right: i + 1 })
-    //   // drawImageFull(sketch, imgRegion, img)
-    //   sketch.noStroke()
-    //   let uix1 = sketch.map(i, 0, 16, 0, 1)
-    //   drawImageCrop(sketch, imgRegion, img, uix1, 0, Math.sin(140), 1)
-    //   i += 2
-    // }
-
-    // imgRegion = randomAccess(gridObj, { top: 2, left: 2, bottom: 10, right: 9 })
-    // drawImageFull(sketch, imgRegion, img)
-    // drawImageCrop(sketch, imgRegion, img, 0, 1, 1, 0.2)
-
-
-    // sketch.noStroke()
-    // let uix1 = sketch.map(i, 0, 16, 0, 1)
-
+    sketch.stroke(colors[3])
+    drawLines(sketch, gridObj)
   }
 })
+

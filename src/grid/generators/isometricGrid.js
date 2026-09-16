@@ -1,3 +1,25 @@
+/**
+ * Generates an isometric (diamond) grid that fills the canvas.
+ * Tile width equals `cellSize`; tile height is `cellSize / 2`.
+ * The grid is horizontally centred and covers the full canvas height.
+ *
+ * @param {object} config
+ * @param {number} config.width    - Canvas width in pixels.
+ * @param {number} config.height   - Canvas height in pixels.
+ * @param {number} config.cellSize - Width of each diamond tile in pixels.
+ * @returns {EnhancedIterable}
+ *
+ * @example
+ * const grid = isometricGrid({ width: 600, height: 600, cellSize: 60 })
+ * drawLines(sketch, grid, grid.colSize)
+ *
+ * @example
+ * // Walk cells and colour by column
+ * for (const region of linearWalker(isometricGrid(config))) {
+ *   sketch.fill(colors[region.index.col % colors.length])
+ *   drawRect(sketch, region)
+ * }
+ */
 export function isometricGrid(config) {
   const tileW = config.cellSize
   const tileH = config.cellSize / 2

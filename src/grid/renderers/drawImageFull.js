@@ -7,6 +7,14 @@ import { drawInRegion } from './drawInRegion.js'
  * @param {p5}       sketch - The p5 instance.
  * @param {Region}   region - A region object from a walker.
  * @param {p5.Image} img    - The image to draw.
+ *
+ * @example
+ * // Stretch an image across every cell
+ * for (const region of linearWalker(gridObj)) drawImageFull(sketch, region, img)
+ *
+ * @example
+ * // Fill a merged block from randomAccess
+ * drawImageFull(sketch, randomAccess(gridObj, { top: 1, left: 1, bottom: 6, right: 8 }), img)
  */
 export function drawImageFull(sketch, region, img) {
   if (region.boundary && region.boundaryUVs) {

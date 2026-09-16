@@ -12,6 +12,20 @@ import { drawInRegion } from './drawInRegion.js'
  * @param {number}   v1     - Top edge of crop (0–1).
  * @param {number}   u2     - Right edge of crop (0–1).
  * @param {number}   v2     - Bottom edge of crop (0–1).
+ *
+ * @example
+ * // Sample the top-left quadrant of an image into each cell
+ * for (const region of linearWalker(gridObj)) {
+ *   drawImageCrop(sketch, region, img, 0, 0, 0.5, 0.5)
+ * }
+ *
+ * @example
+ * // Tile different horizontal slices of an image across columns
+ * for (const region of linearWalker(gridObj)) {
+ *   const u1 = region.index.col / numCols
+ *   const u2 = (region.index.col + 1) / numCols
+ *   drawImageCrop(sketch, region, img, u1, 0, u2, 1)
+ * }
  */
 export function drawImageCrop(sketch, region, img, u1, v1, u2, v2) {
   if (region.boundary && region.boundaryUVs) {
