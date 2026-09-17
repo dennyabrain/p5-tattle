@@ -58,7 +58,14 @@ new p5((sketch) => {
         squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 12 }),
         // sine({ frequency: 8, amplitude: 24 }),
         gridWithPerlin(sketch, { level: 4 }),
-        translate([2, 2])
+        // squareGrid({ width: 600, height: 600, cellSize: 40 }),
+        // gridWithPerlin(sketch, { level: 12 })
+    )
+
+    const grid2 = pipe(
+        squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 36 }),
+        // sine({ frequency: 8, amplitude: 24 }),
+        gridWithPerlin(sketch, { level: 4 }),
         // squareGrid({ width: 600, height: 600, cellSize: 40 }),
         // gridWithPerlin(sketch, { level: 12 })
     )
@@ -95,26 +102,15 @@ new p5((sketch) => {
         sketch.translate(12, 12)
         // drawLines(sketch, grid)
 
+        sketch.stroke(colors[4])
+        drawLines(sketch, grid2)
 
-        const regions = [...withSymmetry(linearWalker(grid), grid, { vertical: true, horizontal: true })]
-        const maxRow = Math.max(...regions.map(r => r.index.row))
-        const maxCol = Math.max(...regions.map(r => r.index.col))
-
-        const drawCell = new Map()
-        for (const r of regions) {
-            const key = `${Math.min(r.index.col, maxCol - r.index.col)}_${Math.min(r.index.row, maxRow - r.index.row)}`
-            if (!drawCell.has(key)) drawCell.set(key, Math.random() > 0.5)
-        }
 
         sketch.noStroke()
-        for (const region of regions) {
-            const key = `${Math.min(region.index.col, maxCol - region.index.col)}_${Math.min(region.index.row, maxRow - region.index.row)}`
-            if (!drawCell.get(key)) continue
-            const canonicalCol = Math.min(region.index.col, maxCol - region.index.col)
-            const canonicalRow = Math.min(region.index.row, maxRow - region.index.row)
-            const activate = canonicalCol % 2 == 0 && canonicalRow % 2 == 0
-            const color = activate ? "#645089" : "#a296b8"
-            // sketch.stroke(darken(sketch, color, 4))
+        for (const region of withSymmetry(linearWalker(grid), grid, { vertical: true, horizontal: true })) {
+            if (region.canonicalSeed > 0.5) continue
+            const { col, row } = region.canonicalIndex
+            const color = col % 2 == 0 && row % 2 == 0 ? "#645089" : "#a296b8"
             sketch.fill(color)
             drawRect(sketch, region)
         }

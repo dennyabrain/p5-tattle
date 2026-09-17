@@ -22,20 +22,27 @@ import { cellsFromGrid } from './cells.js'
  * @param {boolean}            [config.vertical=false]   - Mirror top ↔ bottom.
  * @returns {Iterable<Region>}
  *
+ * Each yielded region is augmented with:
+ * - `canonicalIndex` — `{ col, row }` folded to the first quadrant; same for a cell and all its mirrors.
+ * - `canonicalSeed` — a stable `Math.random()` value (0–1) shared by a cell and all its mirrors.
+ *   Use it to make a decision once per canonical position, e.g. `if (region.canonicalSeed > 0.5) continue`.
+ *
  * @example
  * // Horizontal symmetry: draw in left half, mirror to right half
  * const grid = squareGrid({ width: 600, height: 600, cellSize: 40 })
  * for (const region of withSymmetry(linearWalker(grid), grid, { horizontal: true })) {
- *   sketch.fill(colors[region.index.col % colors.length])
+ *   sketch.fill(colors[region.canonicalIndex.col % colors.length])
  *   drawRect(sketch, region)
  * }
  *
  * @example
- * // Four-way symmetry: one quadrant mirrored to all four
+ * // Four-way symmetry with stable random decisions per canonical position
  * const grid = squareGrid({ width: 600, height: 600, cellSize: 40 })
  * for (const region of withSymmetry(linearWalker(grid), grid, { horizontal: true, vertical: true })) {
- *   sketch.fill(colors[region.index.row % colors.length])
- *   drawDiamond(sketch, region)
+ *   if (region.canonicalSeed > 0.5) continue
+ *   const { col, row } = region.canonicalIndex
+ *   sketch.fill(col % 2 == 0 && row % 2 == 0 ? '#645089' : '#a296b8')
+ *   drawRect(sketch, region)
  * }
  *
  * @example
@@ -64,13 +71,19 @@ export function withSymmetry(walker, grid, config = {}) {
       }
 
       const seen = new Set()
+      const seeds = new Map()
 
       for (const region of walker) {
         const { col, row } = region.index
 
+        const canonicalCol = Math.min(col, maxCol - col)
+        const canonicalRow = Math.min(row, maxRow - row)
+        const canonicalKey = `${canonicalCol}_${canonicalRow}`
+        if (!seeds.has(canonicalKey)) seeds.set(canonicalKey, Math.random())
+
         const mirrors = [{ col, row }]
-        if (horizontal) mirrors.push({ col: maxCol - col, row })
-        if (vertical) mirrors.push({ col, row: maxRow - row })
+        if (horizontal)             mirrors.push({ col: maxCol - col, row })
+        if (vertical)               mirrors.push({ col,               row: maxRow - row })
         if (horizontal && vertical) mirrors.push({ col: maxCol - col, row: maxRow - row })
 
         for (const { col: c, row: r } of mirrors) {
@@ -78,7 +91,11 @@ export function withSymmetry(walker, grid, config = {}) {
           if (seen.has(key)) continue
           seen.add(key)
           const cell = lookup.get(key)
-          if (cell) yield cell
+          if (cell) yield {
+            ...cell,
+            canonicalIndex: { col: canonicalCol, row: canonicalRow },
+            canonicalSeed: seeds.get(canonicalKey),
+          }
         }
       }
     }

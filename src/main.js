@@ -1,135 +1,138 @@
 import p5 from 'p5'
-import { brand } from './brand'
-import { generators, modifiers, renderers, walkers, pipe } from './grid'
-import { darken, lighten } from './colors'
-import { drawDiamond, drawDotDebug, drawImageCrop, drawImageFull, drawInRegion, drawPolygon, drawRect, drawTriangle } from './grid/renderers'
-import { randomAccess, arbitraryRegion, withSymmetry } from './grid/walkers'
-import { sine } from './grid/modifiers'
-import { createCapture } from './grid/capture'
+import { generators, modifiers, walkers, pipe } from './grid'
+import { drawDiamond, drawRect, drawTriangle } from './grid/renderers'
+import { withSymmetry } from './grid/walkers'
 import { radialGrid } from './grid/generators'
 
-const { isometricGrid, squareGrid, fibonacciGrid, randomGrid, perspectiveGrid1, regionGrid } = generators
-const { gridWithPerlin, offset, zigzagOffset, translate } = modifiers
-const { drawDots, drawLines } = renderers
-const { linearWalker, radialWalker } = walkers
+const { squareGrid } = generators
+const { gridWithPerlin, translate, stretch } = modifiers
 
-const WIDTH = 610
-const HEIGHT = 960
+const { linearWalker } = walkers
 
-const colors = Object.keys(brand)
-  .filter((name) => name.indexOf("visuals-") != -1)
-  .reduce((acc, cur) => {
-    acc.push(brand[cur])
-    return acc
-  }, [])
+const WIDTH = 644   // 46 * 14
+const HEIGHT = 966   // 46 * 21
+
+// const P1 = '#342037'  // darkest
+// const P2 = '#4d3052'
+// const P3 = '#67406e'
+// const P4 = '#815089'  // mid
+// const P5 = '#9a73a1'
+// const P6 = '#b396b8'
+// const P7 = '#cdb9d0'
+// const P8 = '#e6dce7'  // lightest
+
+// const P1 = '#100505'  // darkest
+// const P2 = '#1f0a0a'
+// const P3 = '#2f0e0e'
+// const P4 = '#3e1313'  // mid
+// const P5 = '#4e1818'
+// const P6 = '#714646'
+// const P7 = '#957474'
+// const P8 = '#b8a3a3'  // lightest
 
 
-function drawPattern(sketch, region, img) {
-  const dotSize = 1
+// const P1 = '#332e2b'  // darkest
+// const P2 = '#665c57'
+// const P3 = '#998b82'
+// const P4 = '#ccb9ae'  // mid
+// const P5 = '#ffe7d9'
+// const P6 = '#ffece1'
+// const P7 = '#fff1e8'
+// const P8 = '#fff5f0'  // lightest
 
-  sketch.beginClip()
-  drawPolygon(sketch, region)
-  sketch.endClip()
-
-  const localGrid = pipe(
-    regionGrid(region, { cols: 40, rows: 20 }),
-    // sine({ amplitude: 20, frequency: 1, axis: 'x', inputAxis: 'y' })
-    // gridWithPerlin(sketch, { level: 30 })
-  )
-
-  for (const cell of linearWalker(localGrid)) {
-    // drawDiamond(sketch, cell, dotSize)
-    // drawImageFull(sketch, cell, img)
-    drawImageCrop(sketch, cell, img, 0.3, 0.3, 0.8, 0.8)
-  }
-
-  sketch.resetClip()
-}
+const P1 = '#2f0e0e'  // darkest
+const P2 = '#2f0e0e'
+const P3 = '#2f0e0e'
+const P4 = '#2f0e0e'  // mid
+const P5 = '#2f0e0e'
+const P6 = '#2f0e0e'
+const P7 = '#2f0e0e'
+const P8 = '#2f0e0e'  // lightest
 
 
 
 new p5((sketch) => {
 
-  let img, font
+  // --- Grids (created once, outside draw) ---
 
-  const capture = createCapture(sketch)
+  // Border: coarse grid, cells colored by depth from edge
+  const borderGrid = squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 12 })
 
-  const grid = pipe(
-    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 12 }),
-    // sine({ frequency: 8, amplitude: 24 }),
-    gridWithPerlin(sketch, { level: 4 }),
-    // squareGrid({ width: 600, height: 600, cellSize: 40 }),
-    // gridWithPerlin(sketch, { level: 12 })
+  // Field: confined to inner area (inside the 3-cell-deep border)
+  const BORDER_CELL = 12
+  const INSET = 4 * BORDER_CELL  // 69px on each side
+  const fieldGrid = pipe(
+    squareGrid({ width: WIDTH - 2 * INSET, height: HEIGHT - 2 * INSET, cellSize: 12 }),
+    gridWithPerlin(sketch, { level: 3 }),
+    translate([INSET, INSET])
   )
 
-  const grid2 = pipe(
-    squareGrid({ width: WIDTH, height: HEIGHT, cellSize: 36 }),
-    // sine({ frequency: 8, amplitude: 24 }),
+  // Medallion: lobed elliptical ring
+  const CELL_SIZE = 24
+  const R = Math.min(WIDTH, HEIGHT) * 0.40
+  const medallion = pipe(
+    squareGrid({
+      width: WIDTH / 2, height: HEIGHT / 2, cellSize: 24
+
+    }),
     gridWithPerlin(sketch, { level: 4 }),
-    // squareGrid({ width: 600, height: 600, cellSize: 40 }),
-    // gridWithPerlin(sketch, { level: 12 })
+    translate([7 * CELL_SIZE, 10 * CELL_SIZE])
   )
 
-  let computedGrid;
+  // Core: small lobed central star
+  const core = pipe(
+    radialGrid({
+      width: WIDTH, height: HEIGHT,
+      spokes: 16, rings: 3,
+      outerRadius: R * 0.15,
+      lobes: 4, lobeDepth: 0.2,
+    }),
+    stretch([1.2, 1.2])
+  )
 
   sketch.setup = () => {
     sketch.createCanvas(WIDTH, HEIGHT, sketch.WEBGL)
-    sketch.textureMode(sketch.NORMAL)
-    sketch.loadImage('/tmp/fish-sketch.jpg', (loaded) => { img = loaded })
-    sketch.loadFont('/tmp/roboto.ttf', (loaded) => { font = loaded })
-    sketch.angleMode(sketch.DEGREES)
-
-    computedGrid = [...withSymmetry(linearWalker(grid), grid, { horizontal: true, vertical: true })]
-
-
+    sketch.noLoop()
   }
 
-  sketch.keyPressed = () => capture.keyPressed()
-  sketch.mousePressed = () => capture.mousePressed(grid, grid.colSize)
-
   sketch.draw = () => {
-    if (!img) return
-    if (!font) return
-
-    sketch.background(colors[0])
-    // WEBGL origin is canvas center — shift it to top-left to keep grid coords working
+    sketch.background(P3)
     sketch.translate(-WIDTH / 2, -HEIGHT / 2)
+    // sketch.noStroke()
+    sketch.stroke("#dcd1d1")
 
+    // --- Layer 1: nested border bands ---
+    const borderCells = [...linearWalker(borderGrid)]
+    const bMaxCol = Math.max(...borderCells.map(r => r.index.col))
+    const bMaxRow = Math.max(...borderCells.map(r => r.index.row))
 
-    sketch.stroke(colors[3])
-    sketch.push()
-    sketch.scale(0.95)
-    sketch.translate(12, 12)
-    // drawLines(sketch, grid)
-
-    sketch.stroke(colors[4])
-    drawLines(sketch, grid2)
-
-
-    const regions = [...withSymmetry(linearWalker(grid), grid, { vertical: true, horizontal: true })]
-    const maxRow = Math.max(...regions.map(r => r.index.row))
-    const maxCol = Math.max(...regions.map(r => r.index.col))
-
-    const drawCell = new Map()
-    for (const r of regions) {
-      const key = `${Math.min(r.index.col, maxCol - r.index.col)}_${Math.min(r.index.row, maxRow - r.index.row)}`
-      if (!drawCell.has(key)) drawCell.set(key, Math.random() > 0.5)
+    for (const r of borderCells) {
+      const { col, row } = r.index
+      const depth = Math.min(col, bMaxCol - col, row, bMaxRow - row)
+      const n = sketch.noise(r.center[0] * 0.03, r.center[1] * 0.03)
+      if (depth === 0) { sketch.fill(n > 0.5 ? P4 : P8); drawRect(sketch, r) }
+      else if (depth === 1) { sketch.fill(n > 0.45 ? P5 : P2); drawDiamond(sketch, r) }
+      else if (depth === 2) { sketch.fill(n > 0.5 ? P3 : P7); drawRect(sketch, r) }
     }
 
-    sketch.noStroke()
-    for (const region of regions) {
-      const key = `${Math.min(region.index.col, maxCol - region.index.col)}_${Math.min(region.index.row, maxRow - region.index.row)}`
-      if (!drawCell.get(key)) continue
-      const canonicalCol = Math.min(region.index.col, maxCol - region.index.col)
-      const canonicalRow = Math.min(region.index.row, maxRow - region.index.row)
-      const activate = canonicalCol % 2 == 0 && canonicalRow % 2 == 0
-      const color = activate ? "#645089" : "#a296b8"
-      // sketch.stroke(darken(sketch, color, 4))
-      sketch.fill(color)
+    // --- Layer 2: field — 4-way symmetric diamond scatter ---
+    for (const region of withSymmetry(linearWalker(fieldGrid), fieldGrid, { horizontal: true, vertical: true })) {
+      if (region.canonicalSeed > 0.55) continue
+      const { col, row } = region.canonicalIndex
+      sketch.fill((col + row) % 2 === 0 ? P8 : P5)
       drawRect(sketch, region)
     }
 
-    sketch.noLoop()
+    // --- Layer 3: medallion rings-- -
+    for (const region of withSymmetry(linearWalker(medallion), medallion, { horizontal: true, vertical: true })) {
+      const color = region.index.row % 2 === 0
+        ? P7
+        : (region.index.col % 2 === 0 ? P6 : P8)
+      sketch.fill(P3)
+      sketch.noStroke()
+      // drawRect(sketch, region)
+      sketch.fill(color)
+      drawDiamond(sketch, region)
+    }
   }
 })
-

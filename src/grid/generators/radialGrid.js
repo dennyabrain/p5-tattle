@@ -18,6 +18,10 @@
  *   Use a value > 0 to create an annular (donut) grid.
  * @param {[number, number]} [config.center]                - [x, y] centre of the grid.
  *   Defaults to the canvas centre.
+ * @param {number}           [config.lobes=0]               - Number of ornamental lobes.
+ *   Modulates the radius sinusoidally, creating a petal/star contour. 0 = perfect circle.
+ * @param {number}           [config.lobeDepth=0.15]        - Amplitude of the lobe modulation (0–1).
+ *   Higher values produce deeper, more pronounced lobes.
  * @returns {EnhancedIterable}
  *
  * @example
@@ -35,6 +39,13 @@
  * @example
  * // Annular grid — hollow centre
  * radialGrid({ width: 600, height: 600, spokes: 16, rings: 4, innerRadius: 80, outerRadius: 260 })
+ *
+ * @example
+ * // Ornamental medallion contour — 8 lobes, elliptical via stretch modifier
+ * pipe(
+ *   radialGrid({ width: 600, height: 600, spokes: 32, rings: 6, outerRadius: 200, lobes: 8, lobeDepth: 0.12 }),
+ *   stretch([0.75, 1.0])
+ * )
  */
 export function radialGrid(config) {
   const {
@@ -45,6 +56,8 @@ export function radialGrid(config) {
     outerRadius = Math.min(width, height) / 2,
     innerRadius = 0,
     center = [width / 2, height / 2],
+    lobes = 0,
+    lobeDepth = 0.15,
   } = config
 
   const [cx, cy] = center
@@ -58,8 +71,9 @@ export function radialGrid(config) {
       // spokes + 1 columns: the extra column duplicates angle 0 to close the circle
       for (let col = 0; col <= spokes; col++) {
         const angle = (col / spokes) * Math.PI * 2 - Math.PI / 2
+        const lobeScale = lobes > 0 ? 1 + lobeDepth * Math.cos(lobes * angle) : 1
         for (let row = 0; row <= rings; row++) {
-          const radius = innerRadius + (row / rings) * (outerRadius - innerRadius)
+          const radius = (innerRadius + (row / rings) * (outerRadius - innerRadius)) * lobeScale
           yield [
             cx + radius * Math.cos(angle),
             cy + radius * Math.sin(angle),
