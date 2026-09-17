@@ -10,8 +10,8 @@
     "docs": "documentation build src/grid/**/*.js -f html -o docs --config documentation.yml"
   },
   "devDependencies": {
-    "vite": "^8.2.2",
-    "documentation": "^14.0.3"
+    "documentation": "^14.0.3",
+    "vite": "^8.2.2"
   },
   "dependencies": {
     "p5": "^2.3.2",

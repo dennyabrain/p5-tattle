@@ -40,14 +40,14 @@ const HEIGHT = 966   // 46 * 21
 // const P7 = '#fff1e8'
 // const P8 = '#fff5f0'  // lightest
 
-const P1 = '#322b33'  // darkest
-const P2 = '#322b33'
-const P3 = '#322b33'
-const P4 = '#322b33'  // mid
-const P5 = '#322b33'
-const P6 = '#322b33'
-const P7 = '#322b33'
-const P8 = '#322b33'  // lightest
+const P1 = '#2f0e0e'  // darkest
+const P2 = '#2f0e0e'
+const P3 = '#2f0e0e'
+const P4 = '#2f0e0e'  // mid
+const P5 = '#2f0e0e'
+const P6 = '#2f0e0e'
+const P7 = '#2f0e0e'
+const P8 = '#2f0e0e'  // lightest
 
 
 
@@ -71,19 +71,12 @@ new p5((sketch) => {
     const CELL_SIZE = 24
     const R = Math.min(WIDTH, HEIGHT) * 0.40
     const medallion = pipe(
-        // radialGrid({
-        //   width: WIDTH, height: HEIGHT,
-        //   spokes: 64, rings: 12,
-        //   outerRadius: R, innerRadius: R * 0.01,
-        //   lobes: 5, lobeDepth: 0.06,
-        // }),
         squareGrid({
             width: WIDTH / 2, height: HEIGHT / 2, cellSize: 24
 
         }),
         gridWithPerlin(sketch, { level: 4 }),
         translate([7 * CELL_SIZE, 10 * CELL_SIZE])
-        // stretch([0.5, 0.5])
     )
 
     // Core: small lobed central star
@@ -106,7 +99,7 @@ new p5((sketch) => {
         sketch.background(P3)
         sketch.translate(-WIDTH / 2, -HEIGHT / 2)
         // sketch.noStroke()
-        sketch.stroke("#fef7ff")
+        sketch.stroke("#dcd1d1")
 
         // --- Layer 1: nested border bands ---
         const borderCells = [...linearWalker(borderGrid)]
@@ -140,17 +133,6 @@ new p5((sketch) => {
             // drawRect(sketch, region)
             sketch.fill(color)
             drawDiamond(sketch, region)
-
-            // sketch.stroke("#ccb9ae")
-            // sketch.fill("#ffece1")
-            // drawRect(sketch, region)
         }
-
-        // // --- Layer 4: central core ---
-        // for (const region of linearWalker(core)) {
-        //   // sketch.fill(region.index.row % 2 === 0 ? P5 : P3)
-        //   sketch.fill(P4)
-        //   drawRect(sketch, region)
-        // }
     }
 })
