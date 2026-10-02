@@ -1,28 +1,30 @@
 import p5 from 'p5'
-import { brand } from '../../brand.js'
+import uli from '../../brand/uli.json'
 
 /**
- * Color palette drawn from the project's brand tokens.
+ * Color palette from the Uli brand token scale (light to dark), plus black and white.
  *
  * @example
  * import { PALETTE } from './src/apps/drawing/index.js'
  * PALETTE.forEach(hex => console.log(hex))
  */
 export const PALETTE = [
-  '#1a1820',
   '#ffffff',
-  ...Object.values(brand).filter((_, i) => i > 0),
+  ...Object.values(uli.colors),
+  '#000000',
 ]
 
-const GRID = 8
+const GRID = 4
 const DRAW_SIZE = 400
-const SIZE_CELLS = { s: 1, m: 2, l: 4 }
+const SIZE_CELLS = { s: 1, m: 2, l: 3 }
 const ZOOM_LEVELS = [0.5, 1, 2, 4, 8]
 
 // ── state ────────────────────────────────────────────────────────
-let currentColor = '#1a1820'
+let currentColor = '#e58224'
 let sizeKey = 's'
+let pixelShape = 'square' // 'square' | 'circle'
 let isEraser = false
+let activeTool = 'pixel' // 'pixel' | 'line'
 let showBgImage = true
 let zoomIndex = 1
 let panX = 0
@@ -37,6 +39,48 @@ let panDragStartX = 0
 let panDragStartY = 0
 let panDragOriginX = 0
 let panDragOriginY = 0
+
+// line tool tracking
+let lineStart = null // { x, y } snapped logical coords
+
+// keyboard state
+let isSpaceDown = false
+
+// undo history (ImageData snapshots)
+const MAX_HISTORY = 30
+let history = []
+
+/**
+ * Snapshot the current drawing layer into the history stack.
+ * Call this before any operation that modifies the layer.
+ *
+ * @example
+ * saveHistory()
+ * drawCell(drawingLayer, x, y)
+ */
+function saveHistory() {
+  const snapshot = drawingLayer.drawingContext.getImageData(0, 0, DRAW_SIZE, DRAW_SIZE)
+  history.push(snapshot)
+  if (history.length > MAX_HISTORY) history.shift()
+  updateUndoBtn()
+}
+
+/**
+ * Restore the drawing layer to the state before the last stroke.
+ *
+ * @example
+ * document.getElementById('undo-btn').addEventListener('click', undo)
+ */
+function undo() {
+  if (history.length === 0) return
+  drawingLayer.drawingContext.putImageData(history.pop(), 0, 0)
+  updateUndoBtn()
+}
+
+function updateUndoBtn() {
+  const btn = document.getElementById('undo-btn')
+  if (btn) btn.disabled = history.length === 0
+}
 
 // ── coordinate helpers ───────────────────────────────────────────
 function zoom() {
@@ -67,6 +111,90 @@ function snapToGrid(v) {
 
 // ── drawing ──────────────────────────────────────────────────────
 /**
+ * Return all grid-snapped cell positions along the straight path between two points.
+ *
+ * @param {number} x1 - Logical X start.
+ * @param {number} y1 - Logical Y start.
+ * @param {number} x2 - Logical X end.
+ * @param {number} y2 - Logical Y end.
+ * @param {number} [step] - Distance between cell centres; defaults to GRID (touching cells).
+ * @returns {Array<[number, number]>}
+ *
+ * @example
+ * const px = SIZE_CELLS[sizeKey] * GRID
+ * const cells = getLineCells(0, 0, 40, 40, px)
+ * cells.forEach(([cx, cy]) => drawCell(layer, cx, cy))
+ */
+function getLineCells(x1, y1, x2, y2, step = GRID) {
+  const sx1 = snapToGrid(x1), sy1 = snapToGrid(y1)
+  const sx2 = snapToGrid(x2), sy2 = snapToGrid(y2)
+  const dx = sx2 - sx1, dy = sy2 - sy1
+  const steps = Math.max(Math.abs(dx), Math.abs(dy)) / step
+
+  const seen = new Set()
+  const cells = []
+  for (let i = 0; i <= steps; i++) {
+    const t = steps === 0 ? 0 : i / steps
+    const cx = snapToGrid(sx1 + dx * t)
+    const cy = snapToGrid(sy1 + dy * t)
+    const key = `${cx},${cy}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    cells.push([cx, cy])
+  }
+  return cells
+}
+
+// Spray tool: scatter radius (logical px) and dots-per-call per brush size
+const SPRAY_CONFIG = {
+  s: { radius: 16, count: 4 },
+  m: { radius: 28, count: 7 },
+  l: { radius: 40, count: 12 },
+}
+
+/**
+ * Paint random grid-snapped cells within a spray radius around a logical point.
+ *
+ * @param {p5.Graphics} g
+ * @param {number} lx - Logical X of the cursor.
+ * @param {number} ly - Logical Y of the cursor.
+ *
+ * @example
+ * drawSpray(drawingLayer, lx, ly)
+ */
+function drawSpray(g, lx, ly) {
+  const { radius, count } = SPRAY_CONFIG[sizeKey]
+  g.noStroke()
+  if (isEraser) g.erase()
+  else g.fill(currentColor)
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2
+    const r = Math.random() * radius
+    renderShape(g, snapToGrid(lx + r * Math.cos(angle)), snapToGrid(ly + r * Math.sin(angle)), GRID)
+  }
+  if (isEraser) g.noErase()
+}
+
+/**
+ * Draw a single cell shape (square or circle) on any p5 context.
+ *
+ * @param {p5 | p5.Graphics} ctx
+ * @param {number} cellX - Grid-snapped logical X.
+ * @param {number} cellY - Grid-snapped logical Y.
+ * @param {number} px - Cell size in pixels.
+ *
+ * @example
+ * renderShape(drawingLayer, cx, cy, SIZE_CELLS[sizeKey] * GRID)
+ */
+function renderShape(ctx, cellX, cellY, px) {
+  if (pixelShape === 'circle') {
+    ctx.ellipse(cellX + px / 2, cellY + px / 2, px, px)
+  } else {
+    ctx.rect(cellX, cellY, px, px)
+  }
+}
+
+/**
  * Fill one grid-aligned cell on the target graphics buffer.
  *
  * @param {p5.Graphics} g
@@ -81,42 +209,29 @@ function drawCell(g, cellX, cellY) {
   g.noStroke()
   if (isEraser) {
     g.erase()
-    g.rect(cellX, cellY, px, px)
+    renderShape(g, cellX, cellY, px)
     g.noErase()
   } else {
     g.fill(currentColor)
-    g.rect(cellX, cellY, px, px)
+    renderShape(g, cellX, cellY, px)
   }
 }
 
 /**
- * Fill all grid cells along the path between two logical points (no gaps on fast moves).
+ * Draw all cells along the path between two logical points onto a graphics buffer.
  *
  * @param {p5.Graphics} g
- * @param {number} x1 - Previous logical X.
- * @param {number} y1 - Previous logical Y.
- * @param {number} x2 - Current logical X.
- * @param {number} y2 - Current logical Y.
+ * @param {number} x1
+ * @param {number} y1
+ * @param {number} x2
+ * @param {number} y2
  *
  * @example
- * const [lx, ly] = toLogical(p.mouseX, p.mouseY)
- * const [lpx, lpy] = toLogical(p.pmouseX, p.pmouseY)
  * drawPath(drawingLayer, lpx, lpy, lx, ly)
  */
 function drawPath(g, x1, y1, x2, y2) {
-  const sx1 = snapToGrid(x1), sy1 = snapToGrid(y1)
-  const sx2 = snapToGrid(x2), sy2 = snapToGrid(y2)
-  const dx = sx2 - sx1, dy = sy2 - sy1
-  const steps = Math.max(Math.abs(dx), Math.abs(dy)) / GRID
-
-  const seen = new Set()
-  for (let i = 0; i <= steps; i++) {
-    const t = steps === 0 ? 0 : i / steps
-    const cx = snapToGrid(sx1 + dx * t)
-    const cy = snapToGrid(sy1 + dy * t)
-    const key = `${cx},${cy}`
-    if (seen.has(key)) continue
-    seen.add(key)
+  const step = SIZE_CELLS[sizeKey] * GRID
+  for (const [cx, cy] of getLineCells(x1, y1, x2, y2, step)) {
     drawCell(g, cx, cy)
   }
 }
@@ -130,7 +245,6 @@ const sketchFn = (p) => {
     p.createCanvas(container.clientWidth, container.clientHeight).parent('canvas-container')
     drawingLayer = p.createGraphics(DRAW_SIZE, DRAW_SIZE)
     drawingLayer.clear()
-    // Center the drawing area
     panX = Math.floor((p.width - DRAW_SIZE) / 2)
     panY = Math.floor((p.height - DRAW_SIZE) / 2)
     p.frameRate(60)
@@ -138,7 +252,7 @@ const sketchFn = (p) => {
   }
 
   p.draw = () => {
-    p.background(180, 178, 174) // area outside the drawing canvas
+    p.background(180, 178, 174)
 
     p.push()
     p.translate(panX, panY)
@@ -162,6 +276,26 @@ const sketchFn = (p) => {
 
     p.image(drawingLayer, 0, 0)
 
+    // Line tool preview while dragging
+    if (activeTool === 'line' && lineStart !== null && p.mouseIsPressed) {
+      const [lx, ly] = toLogical(p.mouseX, p.mouseY)
+      const px = SIZE_CELLS[sizeKey] * GRID
+      const previewCells = getLineCells(lineStart.x, lineStart.y, lx, ly, px)
+      p.push()
+      p.noStroke()
+      if (isEraser) {
+        p.fill(255, 255, 255, 180)
+      } else {
+        const c = p.color(currentColor)
+        c.setAlpha(180)
+        p.fill(c)
+      }
+      for (const [cx, cy] of previewCells) {
+        renderShape(p, cx, cy, px)
+      }
+      p.pop()
+    }
+
     if (zoom() >= 2) {
       p.push()
       p.stroke(140, 140, 140, 50)
@@ -171,7 +305,6 @@ const sketchFn = (p) => {
       p.pop()
     }
 
-    // Subtle border around drawing area
     p.noFill()
     p.stroke(0, 0, 0, 30)
     p.strokeWeight(1 / zoom())
@@ -179,20 +312,37 @@ const sketchFn = (p) => {
 
     p.pop()
 
-    // Update cursor based on whether mouse is over the draw area
     const [lx, ly] = toLogical(p.mouseX, p.mouseY)
-    p.canvas.style.cursor = inDrawArea(lx, ly) ? 'crosshair' : 'grab'
+    if (isPanning) p.canvas.style.cursor = 'grabbing'
+    else if (isSpaceDown || !inDrawArea(lx, ly)) p.canvas.style.cursor = 'grab'
+    else p.canvas.style.cursor = 'crosshair'
+  }
+
+  p.mouseWheel = (e) => {
+    const dir = e.delta < 0 ? 1 : -1
+    const newIndex = Math.max(0, Math.min(ZOOM_LEVELS.length - 1, zoomIndex + dir))
+    if (newIndex !== zoomIndex) updateZoom(newIndex, p.mouseX, p.mouseY)
+    return false // prevent page scroll
   }
 
   p.mousePressed = () => {
     const [lx, ly] = toLogical(p.mouseX, p.mouseY)
-    if (!inDrawArea(lx, ly)) {
-      // Begin pan drag
+    if (isSpaceDown || !inDrawArea(lx, ly)) {
       isPanning = true
       panDragStartX = p.mouseX
       panDragStartY = p.mouseY
       panDragOriginX = panX
       panDragOriginY = panY
+      return
+    }
+    if (activeTool === 'line') {
+      saveHistory()
+      lineStart = { x: snapToGrid(lx), y: snapToGrid(ly) }
+      return
+    }
+    saveHistory()
+    if (activeTool === 'spray') {
+      drawSpray(drawingLayer, lx, ly)
       return
     }
     drawCell(drawingLayer, snapToGrid(lx), snapToGrid(ly))
@@ -204,13 +354,26 @@ const sketchFn = (p) => {
       panY = panDragOriginY + (p.mouseY - panDragStartY)
       return
     }
+    if (activeTool === 'line') return // preview handled in draw()
     const [lx, ly] = toLogical(p.mouseX, p.mouseY)
+    if (activeTool === 'spray') {
+      drawSpray(drawingLayer, lx, ly)
+      return
+    }
     const [lpx, lpy] = toLogical(p.pmouseX, p.pmouseY)
     drawPath(drawingLayer, lpx, lpy, lx, ly)
   }
 
   p.mouseReleased = () => {
-    isPanning = false
+    if (isPanning) {
+      isPanning = false
+      return
+    }
+    if (activeTool === 'line' && lineStart !== null) {
+      const [lx, ly] = toLogical(p.mouseX, p.mouseY)
+      drawPath(drawingLayer, lineStart.x, lineStart.y, lx, ly)
+      lineStart = null
+    }
   }
 
   p.windowResized = () => {
@@ -230,19 +393,27 @@ new p5(sketchFn)
  * @example
  * updateZoom(zoomIndex + 1)
  */
-function updateZoom(newIndex) {
+/**
+ * Change zoom level, keeping a given canvas point fixed in place.
+ * Defaults to the centre of the display canvas when no focus is provided.
+ *
+ * @param {number} newIndex - Index into ZOOM_LEVELS.
+ * @param {number} [focusX] - Canvas X to zoom toward (defaults to centre).
+ * @param {number} [focusY] - Canvas Y to zoom toward (defaults to centre).
+ *
+ * @example
+ * updateZoom(zoomIndex + 1, p.mouseX, p.mouseY)
+ */
+function updateZoom(newIndex, focusX, focusY) {
   if (!pRef) return
   const oldZoom = zoom()
   const newZoom = ZOOM_LEVELS[newIndex]
-
-  // Zoom toward the center of the display canvas
-  const cx = pRef.width / 2
-  const cy = pRef.height / 2
-  const lx = (cx - panX) / oldZoom
-  const ly = (cy - panY) / oldZoom
-  panX = Math.round(cx - lx * newZoom)
-  panY = Math.round(cy - ly * newZoom)
-
+  const fx = focusX ?? pRef.width / 2
+  const fy = focusY ?? pRef.height / 2
+  const lx = (fx - panX) / oldZoom
+  const ly = (fy - panY) / oldZoom
+  panX = Math.round(fx - lx * newZoom)
+  panY = Math.round(fy - ly * newZoom)
   zoomIndex = newIndex
   document.getElementById('zoom-label').textContent = `${newZoom}×`
 }
@@ -254,7 +425,7 @@ function buildColorGrid() {
     const swatch = document.createElement('button')
     swatch.className = 'color-swatch' + (hex === currentColor ? ' active' : '')
     swatch.style.background = hex
-    if (hex === '#ffffff') swatch.style.outline = '1px solid #d0ceca'
+    if (hex === '#ffffff') swatch.style.outline = '1px solid #e5e0da'
     swatch.title = hex
     swatch.addEventListener('click', () => {
       currentColor = hex
@@ -272,7 +443,28 @@ function buildSizeRow() {
     const btn = e.target.closest('.size-btn')
     if (!btn) return
     sizeKey = btn.dataset.size
-    document.querySelectorAll('.size-btn').forEach((b) => b.classList.remove('active'))
+    document.querySelectorAll('#size-row .size-btn').forEach((b) => b.classList.remove('active'))
+    btn.classList.add('active')
+  })
+}
+
+function wireShapeRow() {
+  document.getElementById('shape-row').addEventListener('click', (e) => {
+    const btn = e.target.closest('.size-btn')
+    if (!btn) return
+    pixelShape = btn.dataset.shape
+    document.querySelectorAll('#shape-row .size-btn').forEach((b) => b.classList.remove('active'))
+    btn.classList.add('active')
+  })
+}
+
+function wireToolRow() {
+  document.getElementById('tool-row').addEventListener('click', (e) => {
+    const btn = e.target.closest('.size-btn')
+    if (!btn) return
+    activeTool = btn.dataset.tool
+    lineStart = null
+    document.querySelectorAll('#tool-row .size-btn').forEach((b) => b.classList.remove('active'))
     btn.classList.add('active')
   })
 }
@@ -324,7 +516,26 @@ function wireFileUpload() {
 
 function wireClear() {
   document.getElementById('clear-btn').addEventListener('click', () => {
-    if (drawingLayer) drawingLayer.clear()
+    if (!drawingLayer) return
+    saveHistory()
+    drawingLayer.clear()
+  })
+}
+
+function wireUndo() {
+  document.getElementById('undo-btn').addEventListener('click', undo)
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+      e.preventDefault()
+      undo()
+    }
+    if (e.code === 'Space' && !e.repeat) {
+      e.preventDefault()
+      isSpaceDown = true
+    }
+  })
+  document.addEventListener('keyup', (e) => {
+    if (e.code === 'Space') isSpaceDown = false
   })
 }
 
@@ -340,6 +551,9 @@ function wireDownload() {
 
 buildColorGrid()
 buildSizeRow()
+wireShapeRow()
+wireToolRow()
+wireUndo()
 wireEraser()
 wireZoom()
 wireToggleBg()
